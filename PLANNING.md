@@ -9,6 +9,7 @@ Platform for mathematical knowledge management, with an web-based conversation-l
 
 - Category (every category has objects and morphisms)
 - Functor (every functor has a domain category and a target category)
+- Partially defined functor (every one has a )
 - Machine (every machine has an input class and an output class)
 - Set (every set has elements)
 - Class (every class has members)
@@ -30,6 +31,7 @@ Platform for mathematical knowledge management, with an web-based conversation-l
 - Add some properties that topological spaces can have, for example Hausdorff, compact, metrizable
 - Add some properties that morphisms of topological spaces can have, for example being closed, being surjective
 - Add the category of commutative rings...
+- Add the set of partially defined functions from the reals to the reals
 
 
 # Project Architecture
