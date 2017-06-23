@@ -1,1 +1,28 @@
 
+#Overview
+
+Platform for mathematical knowledge management, with an web-based conversation-like interface. 
+
+#Mathematical content processing
+
+##List of mathematical types
+
+Category (every category has objects and morphisms)
+Functor (every functor has a domain category and a target category)
+Machine (every machine has an input class and an output class)
+Set (every set has elements)
+Class (every class has members)
+
+
+
+
+##List of meta-mathematical types
+
+Author
+Institute
+Journal
+
+MSC2010 label
+
+
+
