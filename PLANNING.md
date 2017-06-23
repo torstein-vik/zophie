@@ -3,9 +3,9 @@
 
 Platform for mathematical knowledge management, with an web-based conversation-like interface. 
 
-## Mathematical content processing
+# Mathematical content processing
 
-### List of mathematical types
+## List of mathematical types
 
 - Category (every category has objects and morphisms)
 - Functor (every functor has a domain category and a target category)
@@ -16,17 +16,16 @@ Platform for mathematical knowledge management, with an web-based conversation-l
 
 
 
-### List of meta-mathematical types
+## List of meta-mathematical types
 
 - Author
 - Institute
 - Journal
 - MSC2010 label
 
+# Project Architecture
 
-### Examples for prototype building
 
-- Add the category of topological spaces
-- Add some properties that topological spaces can have, for example Hausdorff, compact, metrizable
-- Add some properties that morphisms of topological spaces can have, for example being closed, being surjective
-- Add the category of commutative rings...
+
+
+
