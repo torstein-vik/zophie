@@ -117,7 +117,7 @@ This is just an example of an objects in which the elements have a long list of 
 
 # Project Architecture
 
+A simple client-side with possibility to answer questions about mathematics. Should work with very simple html, because God knows some mathematicians use ancient technology. However, it should be enhanced with javascript and CSS (cross-comapitible).  
 
-
-
+Server-side should contain all the interesting mathematics, with a database of everything. Should create intellegent questions. We can deploy using Firebase, and use a language with a strong typing system for computational ascpects.
 
