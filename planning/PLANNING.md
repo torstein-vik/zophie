@@ -13,12 +13,15 @@ We want to quickly include most of the main concepts of modern mathematics, rath
 
 ### List of mathematical types
 
-- Category (every category has objects and morphisms)
-- Functor (every functor has a domain category and a target category)
-- Partially defined functor (every one has a domain category and a target category)
-- Machine??? (every machine has an input class and an output class)
-- Set (every set has elements)
-- Class (every class has members). Example: The class of all Tannakian categories.
+- Class: This is the most general form of collection. For every class, we may speak of its "members".
+- Category: Consists of a class of objects, and for every ordered pair of objects, a class of morphisms.
+- Set: A class which is is small enough to be a set. (We are implicitly assuming a choice of Grothendieck universe.) The word "element" means a member of set.
+
+- Machine: This is the most general form of input-output procedure. Every machine has an input class and an output class.
+- Functor. Every functor has a domain category and a target category. 
+- Partially defined functor. Every PD functor has a domain category and a target category.
+- Function: A machine where the input class and the output class are sets.
+
 
 This is just the beginning...
 
