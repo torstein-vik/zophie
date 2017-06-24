@@ -5,7 +5,9 @@ Platform for mathematical knowledge management, with an web-based conversation-l
 
 ## Philosophy guiding the design choices
 
-Choices should be made with the goal of achieving a natural human-machine interface.
+Choices should be made with the goal of achieving a workable and useful human-machine interface.
+
+We want to quickly include most of the main concepts of modern mathematics, rather than slowly building from the ground up.
 
 ## Mathematical content processing
 
@@ -16,9 +18,9 @@ Choices should be made with the goal of achieving a natural human-machine interf
 - Partially defined functor (every one has a domain category and a target category)
 - Machine??? (every machine has an input class and an output class)
 - Set (every set has elements)
-- Class (every class has members)
+- Class (every class has members). Example: The class of all Tannakian categories.
 
-
+This is just the beginning...
 
 
 ### List of meta-mathematical types
@@ -51,7 +53,11 @@ Functors from schemes include:
 - The functor to Top which gives the underlying Zariski topology of a scheme
 - The functor to Top which gives the complex topology on the complex points (for schemes where this makes sense)
 - The global sections functor to rings
-- A few examples of cohomology functors. This is really complicated, due to the dependence on zero, one or two integers, a Grothendieck topology, and a sheaf
+- A few examples of cohomology functors. 
+- The functor that takes a scheme to its functor of points. The target category here is the functor category Fun(CRing, Set)
+
+Notes on cohomology functors:
+- This is really complicated, due to the dependence on zero, one or two integers, a Grothendieck topology, and a sheaf. And this is just for sheaf cohomology, other cohomologies depend on other things. Should we introduce cohomology as a family of functors indexed by a natural number, or as a single functors into graded/bigraded abelian groups? There are several other issues to resolve here...
 
 #### Various topological categories
 
@@ -59,8 +65,10 @@ Functors from schemes include:
 - The category of metric spaces
 - The category of simplicial sets
 
+
+Add:
 - Some properties that topological spaces can have, for example Hausdorff, compact, connected, metrizable
-- Some properties that morphisms of topological spaces can have, for example being closed, being surjective
+- Some properties that morphisms of topological spaces can have, for example being closed, being surjective, begin an epimorphism
 
 #### Various categories of rings
 
@@ -71,7 +79,13 @@ Functors from schemes include:
 
 #### Various categories of groups
 
-1. The category of abelian groups (using additive notation)
+1. The category of groups
+2. The category of abelian groups (using additive notation)
+3. The category of abelian groups (using multiplicative notation)
+4. The category of finite groups (using multiplicative notation)
+5. The category of finitely generated abelian groups (using additive notation)
+
+
 
 #### Various categories of monoids
 
@@ -99,6 +113,7 @@ Secondly, we add a few functors between them:
 
 #### The set of partially defined functions from the reals to the reals
 
+This is just an example of an objects in which the elements have a long list of super-interesting properties. It is a slightly complicated example due to the multitude of operations and topologies, some of which are only partially defined.
 
 # Project Architecture
 
