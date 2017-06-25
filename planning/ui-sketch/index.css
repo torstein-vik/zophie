@@ -52,7 +52,7 @@ tabs > div {
     transition: all 250ms;
 }
 
-tabs[group="nav"] div.active, tabs[group="nav"] div:hover{
+tabs[group="nav"] > div.active, tabs[group="nav"] > div:hover{
     background-color: rgba(115, 214, 24, 0.82);
 
 }
