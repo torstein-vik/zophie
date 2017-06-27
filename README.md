@@ -41,7 +41,7 @@ This framework is and will remain completely open source, under the GNU General 
 
 ## Architecture
 
-Mostly still in planning, but see Languages/Frameworks for some ideas about the architecture.
+Handled almost entirely by Firebase. At a later stage, firebase will use CoCalc's API to run computation in something more sophisticated than js.
 
 ## Languages/Frameworks
 
