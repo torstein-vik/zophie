@@ -52,3 +52,8 @@ This is very subject to change, and only specifices the current plans.
 
 * /planning -- Files for the planning of the project
 * /planning/ui-sketch -- Sketch of the UI
+
+* /firebase/ -- The root directory for the firebase project. NOTE: FILES ARE NOT EDITED HERE, BUT BUILT FROM /src/
+* /firebase/public -- Public directory with all the hosted files
+* /firebase/function -- Directory with the server-side logic
+
