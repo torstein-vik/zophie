@@ -4,7 +4,13 @@
 
 ## Installation
 
-There is nothing to install yet...
+1. Make sure you have installed Node.js and the firebase-tools package
+2. Clone this repo to your computer
+3. Login to Firebase (with 'firebase login')
+4. Update .firebaserc to accommodate whatever your Firebase project is
+5. In the firebase directory, use 'firebase serve' to run locally and 'firebase deploy' to deploy online.
+
+Please tell us if this doesn't work, because that means something is wrong with our instructions.
 
 ## Contributors
 
