@@ -1,4 +1,1 @@
-/src/private/firebase-config.json
-/src/private/firebase-private-key.json
-/src/server/node_modules/*
 /src/functions/node_modules/*
