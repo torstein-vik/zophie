@@ -1,4 +1,5 @@
-$theme: rgba(115, 214, 24, 0.82);
+
+$theme: rgb(115 * 0.84 + (256 * 0.16), 214 * 0.84 + (256 * 0.16), 24 * 0.84 + (256 * 0.16));
 $theme-active: darken($theme, 10%);
 
 html, body {
@@ -18,7 +19,7 @@ h1 {
 
     font-weight: 100;
     font-size: 200%;
-    letter-spacing: 10px;
+    letter-spacing: 5px;
 }
 
 body {
@@ -41,6 +42,10 @@ header {
     box-shadow: 0 0 10px black;
 
     flex: 0 1 auto;
+
+    tabs > div{
+        margin-bottom: 10px;
+    }
 }
 
 tabs {
@@ -56,7 +61,7 @@ tabs {
 
         text-align: center;
 
-        transition: all 250ms;
+        transition: background-color 250ms;
 
         background-color: $theme;
 
