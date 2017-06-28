@@ -4,5 +4,6 @@
 /firebase/public/index.html
 /firebase/public/index.css
 /firebase/public/index.js
+/firebase/firebase-debug.log
 /.sass-cache/*
 /node_modules/*
