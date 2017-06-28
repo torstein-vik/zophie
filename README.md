@@ -6,9 +6,12 @@
 
 1. Make sure you have installed Node.js and the firebase-tools package
 2. Clone this repo to your computer
-3. Login to Firebase (with 'firebase login')
-4. Update .firebaserc to accommodate whatever your Firebase project is
-5. In the firebase directory, use 'firebase serve' to run locally and 'firebase deploy' to deploy online.
+3. Run 'npm install' in the zophie directory to install packages for the build script
+4. Make sure you have SASS installed, and in path
+5. Run 'node build.js' to build the program
+6. Login to Firebase (with 'firebase login')
+7. Update .firebaserc to accommodate whatever your Firebase project is
+8. In the firebase directory, use 'firebase serve' to run locally and 'firebase deploy' to deploy online.
 
 Please tell us if this doesn't work, because that means something is wrong with our instructions.
 
@@ -47,7 +50,7 @@ Handled almost entirely by Firebase. At a later stage, firebase will use CoCalc'
 
 * Hosting/Maintenance: Firebase
 * Server-side: Node.js which recieves all events from the client-side, and delegates computational aspects to other services. Another idea could be to implement everything in javascript, but this seems slow and difficult. 
-* Client-side: Possibly Angular, but maybe React or Vue as well.
+* Client-side: Possibly Angular, but maybe React or Vue as well. Stylesheets using SASS/SCSS
 * Displaying math: MathJAX, hopefull server-side but maybe just client-side.
 
 #### Note
