@@ -1,0 +1,21 @@
+{
+    "copies": [
+        {
+            "from": "./src/client/index.html",
+            "to":   "./firebase/public/index.html"
+        },{
+            "from": "./src/client/index.js",
+            "to":   "./firebase/public/index.js"
+        },{
+            "from": "./src/server/server.js",
+            "to":   "./firebase/functions/index.js"
+        },
+        {
+            "from": "./src/client/json/",
+            "to":   "./firebase/public/json/"
+        }
+    ],
+    "commands": [
+        "sass --sourcemap=none \"./src/client/index.scss\" \"./firebase/public/index.css\""
+    ]
+}
