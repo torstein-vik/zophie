@@ -1,5 +1,6 @@
-# zophie
+# Zophie
 ***A Mathematical Oracle***
+https://zophie-508e8.firebaseapp.com/
 ## Overview
 
 ## Installation
