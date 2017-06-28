@@ -1,7 +1,11 @@
+$theme: rgba(115, 214, 24, 0.82);
+$theme-active: darken($theme, 10%);
+
 html, body {
     font-family: 'Open Sans', sans-serif;
     line-height: 2;
-    margin: 0px;
+    margin: 0;
+    font-size: 100%;
 
 }
 
@@ -11,6 +15,10 @@ h1 {
 
     margin: 0 20px;
     padding: 0px;
+
+    font-weight: 100;
+    font-size: 200%;
+    letter-spacing: 10px;
 }
 
 body {
@@ -28,9 +36,8 @@ body {
 
 header {
     width: 100%;
-    height: 120px;
 
-    background-color: rgba(115, 214, 24, 0.82);
+    background-color: $theme;
     box-shadow: 0 0 10px black;
 
     flex: 0 1 auto;
@@ -39,28 +46,60 @@ header {
 tabs {
     display: flex;
     justify-content: space-around;
+
+    & > div {
+
+        padding: 10px;
+
+        cursor: pointer;
+        width: 100px;
+
+        text-align: center;
+
+        transition: all 250ms;
+
+        background-color: $theme;
+
+        &.active, &:hover{
+            background-color: $theme-active;
+
+        }
+    }
 }
 
-tabs > div {
-    padding: 10px;
-
-    cursor: pointer;
-    width: 100px;
-
-    text-align: center;
-
-    transition: all 250ms;
-}
-
-tabs[group="nav"] > div.active, tabs[group="nav"] > div:hover{
-    background-color: rgba(115, 214, 24, 0.82);
-
-}
-
-tab{
-
-}
 
 content {
     flex: 1 1 auto;
+    display: flex;
+    flex-flow: column;
+
+    overflow-y: scroll;
+
+
+    &::-webkit-scrollbar {
+        width: 6px;
+        padding-top: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $theme;
+        border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover{
+        background: $theme-active;
+    }
+}
+
+content-container{
+    display: block;
+    flex: 1;
+
+    width: 70%;
+    height: 100%;
+    margin: 20px auto 20px auto;
+    //box-shadow: 0 0 5px black;
+    padding: 10px;
+
+    overflow-wrap: break-word;
 }
