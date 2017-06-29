@@ -43,8 +43,25 @@ header {
 
     flex: 0 1 auto;
 
-    tabs > div{
-        margin-bottom: 10px;
+    tabs {
+        & > div.taboption {
+            margin-bottom: 10px;
+        }
+
+        user-nav {
+
+            position: absolute;
+            top: 0;
+            right: 0;
+
+            background-color: gray;
+
+            display: flex;
+
+            & > div {
+
+            }
+        }
     }
 }
 
@@ -52,7 +69,7 @@ tabs {
     display: flex;
     justify-content: space-around;
 
-    & > div {
+    div.taboption {
 
         padding: 10px;
 
@@ -63,10 +80,10 @@ tabs {
 
         transition: background-color 250ms;
 
-        background-color: $theme;
+        background-color: rgba(0,0,0,0);
 
         &.active, &:hover{
-            background-color: $theme-active;
+            background-color: rgba(0,0,0,0.10);
 
         }
     }
@@ -96,7 +113,7 @@ content {
     }
 }
 
-content-container{
+content-container {
     display: block;
     flex: 1;
 
