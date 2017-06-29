@@ -69,7 +69,7 @@ angular.module('zophie', [])
             }
 
         },
-        template: '<div ng-class="{active: selected}" ng-click="select()" ng-transclude> </div>',
+        template: '<div class="taboption" ng-class="{active: selected}" ng-click="select()" ng-transclude> </div>',
         replace: true
     }
 })
