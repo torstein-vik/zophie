@@ -111,28 +111,3 @@ angular.module('zophie', ['ngRoute'])
         replace: true
     }
 })
-
-.directive('tab', function() {
-    return {
-        restrict: 'E',
-        transclude: true,
-        scope: { group: '@', id: '@' },
-        controller: function($scope, $element){
-            $scope.visible = false;
-
-            angular.element("tabs[group="+$scope.group+"]").controller('tabs').addTab($scope.id, this);
-
-            this.hide = function(){
-                $scope.visible = false;
-
-            }
-
-            this.show = function(){
-                $scope.visible = true;
-
-            }
-        },
-        template: '<div ng-show="visible" ng-transclude> </div>',
-        replace: true
-    }
-})
