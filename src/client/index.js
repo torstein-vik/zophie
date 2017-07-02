@@ -12,7 +12,45 @@ function load(){
 
 
 
-angular.module('zophie', [])
+angular.module('zophie', ['ngRoute'])
+
+.config(function($routeProvider, $locationProvider){
+    $routeProvider
+    .when('/home', {
+        templateUrl: 'templates/home.html',
+        controller: undefined
+    })
+    .when('/ask', {
+        templateUrl: 'templates/ask.html',
+        controller: undefined
+    })
+    .when('/ask/q=:query', {
+        templateUrl: 'templates/query.html',
+        controller: undefined
+    })
+    .when('/answer', {
+        templateUrl: 'templates/answer.html',
+        controller: undefined
+    })
+    .when('/addcontent', {
+        templateUrl: 'templates/addcontent.html',
+        controller: undefined
+    })
+    .when('/visualize', {
+        templateUrl: 'templates/visualize.html',
+        controller: undefined
+    })
+    .when('/about', {
+        templateUrl: 'templates/about.html',
+        controller: undefined
+    });
+
+    $locationProvider.html5Mode(true);
+})
+
+.controller('MainController', function ($scope, $route, $routeParams, ){
+
+})
 
 .directive('tabs', function() {
 
