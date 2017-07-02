@@ -9,10 +9,12 @@
         },{
             "from": "./src/server/server.js",
             "to":   "./firebase/functions/index.js"
-        },
-        {
+        },{
             "from": "./src/client/json/",
             "to":   "./firebase/public/json/"
+        },{
+            "from": "./src/client/templates/",
+            "to":   "./firebase/public/templates/"
         }
     ],
     "commands": [
