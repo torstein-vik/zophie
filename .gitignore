@@ -1,6 +1,7 @@
 /firebase/functions/node_modules/*
 /firebase/functions/index.js
 /firebase/public/json/*
+/firebase/public/templates/*
 /firebase/public/index.html
 /firebase/public/index.css
 /firebase/public/index.js
