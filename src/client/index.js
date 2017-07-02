@@ -59,12 +59,9 @@ angular.module('zophie', ['ngRoute'])
         transclude: false,
         scope: { group: '@' },
         controller : function($scope, $element) {
-            var tabs = $scope.tabs = {};
             var buttons = $scope.buttons = [];
-            var current = $scope.current = false;
 
-            this.select = function (tabid, button) {
-                current = tabid;
+            this.select = function (page, button) {
 
                 angular.forEach(buttons, function(button) {
                     button.selected = false;
@@ -72,15 +69,7 @@ angular.module('zophie', ['ngRoute'])
 
                 button.selected = true;
 
-                angular.forEach(tabs, function(tab) {
-                    tab.hide();
-                });
 
-                tabs[tabid].show();
-            }
-
-            this.addTab = function (tabid, controller){
-                tabs[tabid] = controller;
             }
 
             this.addButton = function (button) {
