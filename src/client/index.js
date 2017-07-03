@@ -79,9 +79,23 @@ angular.module('zophie', ['ngRoute'])
 .controller('LoginController', function($scope, $route, $routeParams, $location) {
     $scope.submit = function() {
         firebase.auth().signInWithEmailAndPassword($scope.email, $scope.password).then(function(result){
-            alert("Logged in!")
+            alert("Logged in!");
         }).catch(function(error){
             alert("An error occured! " + error);
         });
+    };
+})
+
+.controller('RegisterController', function($scope, $route, $routeParams, $location) {
+    $scope.submit = function() {
+        if($scope.password1 === $scope.password2){
+            firebase.auth().createUserWithEmailAndPassword($scope.email, $scope.password1).then(function(result){
+                alert("Registered!");
+            }).catch(function(error){
+                alert("An error occured! " + error);
+            });
+        } else {
+            alert("Mismatch between password and password confirm!");
+        }
     };
 })
