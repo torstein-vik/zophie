@@ -1,7 +1,9 @@
+// Common SCSS
 
 $theme: rgb(115 * 0.84 + (256 * 0.16), 214 * 0.84 + (256 * 0.16), 24 * 0.84 + (256 * 0.16));
 $theme-active: darken($theme, 10%);
 
+// Global font and reset
 html, body {
     font-family: 'Open Sans', sans-serif;
     line-height: 2;
@@ -10,6 +12,7 @@ html, body {
 
 }
 
+// Main 'Zophie' title
 h1 {
     text-align: center;
     font-family: 'Oxygen', sans-serif;
@@ -22,6 +25,7 @@ h1 {
     letter-spacing: 5px;
 }
 
+// Setting up layout
 body {
     position: absolute;
 
@@ -35,6 +39,7 @@ body {
 
 }
 
+// The navigation container, top part of page
 header {
     width: 100%;
 
@@ -43,11 +48,37 @@ header {
 
     flex: 0 1 auto;
 
+    // The navigation part
     tabs {
+        display: flex;
+        justify-content: space-around;
+
+        // General navigation elements
+        & div.taboption{
+            padding: 10px;
+
+            cursor: pointer;
+            width: 100px;
+
+            text-align: center;
+
+            transition: background-color 250ms;
+
+            background-color: rgba(0,0,0,0);
+
+            // When active or hovered over
+            &.active, &:hover{
+                background-color: rgba(0,0,0,0.10);
+
+            }
+        }
+
+        // Main navigation
         & > div.taboption {
             margin-bottom: 10px;
         }
 
+        // User navigation container
         user-nav {
 
             position: absolute;
@@ -58,38 +89,11 @@ header {
 
             display: flex;
 
-            & > div {
-
-            }
         }
     }
 }
 
-tabs {
-    display: flex;
-    justify-content: space-around;
-
-    div.taboption {
-
-        padding: 10px;
-
-        cursor: pointer;
-        width: 100px;
-
-        text-align: center;
-
-        transition: background-color 250ms;
-
-        background-color: rgba(0,0,0,0);
-
-        &.active, &:hover{
-            background-color: rgba(0,0,0,0.10);
-
-        }
-    }
-}
-
-
+// Main content window
 content {
     flex: 1 1 auto;
     display: flex;
@@ -98,6 +102,7 @@ content {
     overflow-y: scroll;
 
 
+    // Scrollbar style for main-content
     &::-webkit-scrollbar {
         width: 6px;
         padding-top: 5px;
@@ -113,6 +118,7 @@ content {
     }
 }
 
+// Block for placing content inside
 content-container {
     display: block;
     flex: 1;
