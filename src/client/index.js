@@ -75,3 +75,13 @@ angular.module('zophie', ['ngRoute'])
         replace: true
     }
 })
+
+.controller('LoginController', function($scope, $route, $routeParams, $location) {
+    $scope.submit = function() {
+        firebase.auth().signInWithEmailAndPassword($scope.email, $scope.password).then(function(result){
+            alert("Logged in!")
+        }).catch(function(error){
+            alert("An error occured! " + error);
+        });
+    };
+})
