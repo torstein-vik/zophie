@@ -51,53 +51,27 @@ angular.module('zophie', ['ngRoute'])
 })
 
 .controller('MainController', function ($scope, $route, $routeParams, $location){
-    console.log("hi");
-})
 
-.directive('tabs', function() {
-
-    return {
-        restrict: 'E',
-        transclude: false,
-        controller : function($scope, $element, $route, $routeParams, $location) {
-            var buttons = $scope.buttons = [];
-
-            this.select = function (page, button) {
-
-                angular.forEach(buttons, function(button) {
-                    button.selected = false;
-                });
-
-                button.selected = true;
-
-                $location.path(page);
-            }
-
-            this.addButton = function (button) {
-                buttons.push(button);
-            }
-        }
-    }
 })
 
 .directive('tabOption', function() {
 
     return {
-        require: '^^tabs',
         restrict: 'E',
         transclude: true,
         scope: { for: '@' },
-        link: function($scope, $element, attrs, tabsController){
-            tabsController.addButton($scope);
-
-            var selected = $scope.selected = false;
+        controller: function($scope, $element, $route, $routeParams, $location){
 
             $scope.select = function () {
-                tabsController.select($scope.for, $scope);
-            }
+                $location.path($scope.for);
+            };
+
+            $scope.isActive = function () {
+                return $location.path().substr(1, $scope.for.length) == $scope.for;
+            };
 
         },
-        template: '<div class="taboption" ng-class="{active: selected}" ng-click="select()" ng-transclude> </div>',
+        template: '<div class="taboption" ng-class="{active: isActive()}" ng-click="select()" ng-transclude> </div>',
         replace: true
     }
 })
