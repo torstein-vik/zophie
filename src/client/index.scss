@@ -12,17 +12,9 @@ html, body {
 
 }
 
-// Main 'Zophie' title
-h1 {
-    text-align: center;
-    font-family: 'Oxygen', sans-serif;
-
-    margin: 0 20px;
-    padding: 0px;
-
-    font-weight: 100;
-    font-size: 200%;
-    letter-spacing: 5px;
+// Style for links
+a {
+    color: black;
 }
 
 // Setting up layout
@@ -37,6 +29,20 @@ body {
     display: flex;
     flex-direction: column;
 
+}
+
+
+// Main 'Zophie' title
+h1 {
+    text-align: center;
+    font-family: 'Oxygen', sans-serif;
+
+    margin: 0 20px;
+    padding: 0px;
+
+    font-weight: 100;
+    font-size: 200%;
+    letter-spacing: 5px;
 }
 
 // The navigation container, top part of page
