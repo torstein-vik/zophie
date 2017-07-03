@@ -37,6 +37,25 @@ At this point we have little more than a list of tokens. This state is a tempora
 
 ### Template specification
 
+Specified in JSON and compiled from that. Example:
+    {
+        "syntax": [
+            {"text": "Could you give me an example of "},
+            {"concept": {restrictions:[{"hasrealization": "class"}], name:"@1"}}
+        ],
+        "answer": [
+            {"selectconcept": {restrictions:[{"hasrealization": {"from": "@1"}}], "select": "random"}},
+            {"text": " is an example."}
+        ]
+    }
+
+
+#### Formal Specification
+
+Object with "syntax" and "answer" attribute. "syntax" is the syntax of a question, and "answer" is the answer given that a sentence matches the syntax. Both are arrays of token-objects.
+
+
+
 ### Template code interface
 
 ### Template storage
