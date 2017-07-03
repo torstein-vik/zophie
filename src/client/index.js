@@ -1,17 +1,3 @@
-load().done(() => {
-    let app = firebase.app();
-
-});
-
-function load(){
-    let DOMLoaded = new $.Deferred((def) => $(def.resolve));
-    return DOMLoaded;
-}
-
-
-
-
-
 angular.module('zophie', ['ngRoute'])
 
 .config(function($routeProvider, $locationProvider){
