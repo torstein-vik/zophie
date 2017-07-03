@@ -59,7 +59,6 @@ angular.module('zophie', ['ngRoute'])
     return {
         restrict: 'E',
         transclude: false,
-        scope: { group: '@' },
         controller : function($scope, $element, $route, $routeParams, $location) {
             var buttons = $scope.buttons = [];
 
