@@ -48,8 +48,8 @@ angular.module('zophie', ['ngRoute'])
     $locationProvider.html5Mode(true);
 })
 
-.controller('MainController', function ($scope, $route, $routeParams, ){
-
+.controller('MainController', function ($scope, $route, $routeParams, $location){
+    console.log("hi");
 })
 
 .directive('tabs', function() {
@@ -58,7 +58,7 @@ angular.module('zophie', ['ngRoute'])
         restrict: 'E',
         transclude: false,
         scope: { group: '@' },
-        controller : function($scope, $element) {
+        controller : function($scope, $element, $route, $routeParams, $location) {
             var buttons = $scope.buttons = [];
 
             this.select = function (page, button) {
@@ -69,7 +69,7 @@ angular.module('zophie', ['ngRoute'])
 
                 button.selected = true;
 
-
+                $location.path(page);
             }
 
             this.addButton = function (button) {
