@@ -43,6 +43,22 @@ angular.module('zophie', ['ngRoute'])
     .when('/about', {
         templateUrl: 'templates/about.html',
         controller: undefined
+    })
+    .when('/login', {
+        templateUrl: 'templates/login.html',
+        controller: undefined
+    })
+    .when('/register', {
+        templateUrl: 'templates/register.html',
+        controller: undefined
+    })
+    .when('/mypage', {
+        templateUrl: 'templates/mypage.html',
+        controller: undefined
+    })
+    .when('/logout', {
+        templateUrl: 'templates/logout.html',
+        controller: undefined
     });
 
     $locationProvider.html5Mode(true);
