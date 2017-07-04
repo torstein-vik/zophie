@@ -49,6 +49,9 @@ angular.module('zophie', ['ngRoute'])
         templateUrl: 'templates/logout.html',
         controller: 'ViewController',
         reqlogin: true
+    })
+    .otherwise({
+        templateUrl: 'templates/404.html'
     });
 
     $locationProvider.html5Mode(true);
