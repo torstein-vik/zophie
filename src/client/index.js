@@ -104,3 +104,13 @@ angular.module('zophie', ['ngRoute'])
         }
     };
 })
+
+.controller('LogoutController', function($scope, $route, $routeParams, $location) {
+    $scope.submit = function() {
+        firebase.auth().signOut().then(function(result){
+            $location.path("/home");
+        }).catch(function(error){
+            alert("An error occured! " + error);
+        });
+    };
+})
