@@ -46,8 +46,10 @@
                 <tab-option for="visualize"> Visualize </tab-option>
                 <tab-option for="about"> About </tab-option>
                 <user-nav>
-                    <tab-option for="login"> Login </tab-option>
-                    <tab-option for="register"> Register </tab-option>
+                    <tab-option ng-hide="loggedin" for="login"> Login </tab-option>
+                    <tab-option ng-hide="loggedin" for="register"> Register </tab-option>
+                    <tab-option ng-show="loggedin" for="mypage"> My page </tab-option>
+                    <tab-option ng-show="loggedin" for="logout"> Log out </tab-option>
                 </user-nav>
             </tabs>
         </header>

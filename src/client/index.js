@@ -51,7 +51,12 @@ angular.module('zophie', ['ngRoute'])
 })
 
 .controller('MainController', function ($scope, $route, $routeParams, $location){
+    $scope.loggedin = false;
 
+    firebase.auth().onAuthStateChanged(function(user) {
+        $scope.loggedin = (user != null);
+        $scope.$apply();
+    });
 })
 
 .directive('tabOption', function() {
