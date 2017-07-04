@@ -4,47 +4,51 @@ angular.module('zophie', ['ngRoute'])
     $routeProvider
     .when('/home', {
         templateUrl: 'templates/home.html',
-        controller: undefined
+        controller: 'ViewController'
     })
     .when('/ask', {
         templateUrl: 'templates/ask.html',
-        controller: undefined
+        controller: 'ViewController'
     })
     .when('/ask/q=:query', {
         templateUrl: 'templates/query.html',
-        controller: undefined
+        controller: 'ViewController'
     })
     .when('/answer', {
         templateUrl: 'templates/answer.html',
-        controller: undefined
+        controller: 'ViewController',
+        reqlogin: true
     })
     .when('/addcontent', {
         templateUrl: 'templates/addcontent.html',
-        controller: undefined
+        controller: 'ViewController',
+        reqlogin: true
     })
     .when('/visualize', {
         templateUrl: 'templates/visualize.html',
-        controller: undefined
+        controller: 'ViewController'
     })
     .when('/about', {
         templateUrl: 'templates/about.html',
-        controller: undefined
+        controller: 'ViewController'
     })
     .when('/login', {
         templateUrl: 'templates/login.html',
-        controller: undefined
+        controller: 'ViewController'
     })
     .when('/register', {
         templateUrl: 'templates/register.html',
-        controller: undefined
+        controller: 'ViewController'
     })
     .when('/mypage', {
         templateUrl: 'templates/mypage.html',
-        controller: undefined
+        controller: 'ViewController',
+        reqlogin: true
     })
     .when('/logout', {
         templateUrl: 'templates/logout.html',
-        controller: undefined
+        controller: 'ViewController',
+        reqlogin: true
     });
 
     $locationProvider.html5Mode(true);
@@ -52,11 +56,18 @@ angular.module('zophie', ['ngRoute'])
 
 .controller('MainController', function ($scope, $route, $routeParams, $location){
     $scope.loggedin = false;
+    $scope.reqlogin = false;
 
     firebase.auth().onAuthStateChanged(function(user) {
         $scope.loggedin = (user != null);
         $scope.$apply();
     });
+})
+
+.controller('ViewController', function($scope, $route, $routeParams, $location){
+    var reqlogin = $route.current.$$route.reqlogin ? true : false;
+
+    angular.element("html").scope().reqlogin = reqlogin;
 })
 
 .directive('tabOption', function() {

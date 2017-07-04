@@ -55,10 +55,13 @@
         </header>
         <content>
             <content-container>
-
-                <div ng-view>
+                <div ng-hide="!loggedin && reqlogin">
+                    <div ng-view>
+                    </div>
                 </div>
-
+                <div ng-show="!loggedin && reqlogin">
+                    You need to be logged in to access this! Go <a href="/login">here</a> to log in, and <a href="/register">here</a> to register.
+                </div>
             </content-container>
         </content>
     </body>
