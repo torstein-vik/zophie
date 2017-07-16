@@ -98,12 +98,12 @@ function compileBuildScript(build){
             onvalue = on[ontype];
 
             if (ontype === types[1] && onvalue === true){
-                onvalue = file.from;
+                onvalue = path.join(file.from);
             }
 
             newbuild.files.push({
-                from: file.from,
-                to: file.to,
+                from: path.join(file.from),
+                to: path.join(file.to),
                 ontype: ontype,
                 onvalue: onvalue
             });
@@ -112,21 +112,24 @@ function compileBuildScript(build){
 
     if (build.directories){
         build.directories.forEach((directory) => {
-            fs.readdirSync(directory).filter((filename) => fs.statSync(filename).isFile()).forEach((file) => {
-                let on = file.on || {always: true};
+            fs.readdirSync(directory.from).filter((filename) => fs.statSync(path.join(directory.from, filename)).isFile()).forEach((filename) => {
+                let on = directory.on || {always: true};
                 let ontype, onvalue;
+
+                let frompath = path.join(directory.from, filename);
+                let topath   = path.join(directory.to  , filename);
 
                 types.forEach((type) => on[type] ? ontype = type : false);
 
                 onvalue = on[ontype];
 
                 if (ontype === types[1] && onvalue === true){
-                    onvalue = file.from;
+                    onvalue = frompath;
                 }
 
                 newbuild.files.push({
-                    from: file.from,
-                    to: file.to,
+                    from: frompath,
+                    to: topath,
                     ontype: ontype,
                     onvalue: onvalue
                 });
