@@ -137,6 +137,25 @@ function compileBuildScript(build){
         });
     }
 
+    if (build.commands){
+        build.commands.forEach((command) => {
+            command = typeof command === 'string' ? {command: command} : command;
+
+            let on = command.on || {always: true};
+            let ontype, onvalue;
+
+            types.forEach((type) => on[type] ? ontype = type : false);
+
+            onvalue = on[ontype];
+
+            newbuild.commands.push({
+                command: command.command,
+                ontype: ontype,
+                onvalue: onvalue
+            });
+        });
+    }
+
     return newbuild;
 }
 
