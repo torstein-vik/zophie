@@ -1,23 +1,34 @@
 {
-    "copies": [
+    "files": [
         {
+            "on":   {"filechange": true},
             "from": "./src/client/index.html",
             "to":   "./firebase/public/index.html"
         },{
+            "on":   {"filechange": true},
             "from": "./src/client/index.js",
             "to":   "./firebase/public/index.js"
         },{
+            "on":   {"filechange": true},
             "from": "./src/server/server.js",
             "to":   "./firebase/functions/index.js"
-        },{
+        }
+    ],
+    "directories": [
+        {
+            "on":   {"filechange": true},
             "from": "./src/client/json/",
             "to":   "./firebase/public/json/"
         },{
+            "on":   {"filechange": true},
             "from": "./src/client/templates/",
             "to":   "./firebase/public/templates/"
         }
     ],
     "commands": [
-        "sass --sourcemap=none \"./src/client/index.scss\" \"./firebase/public/index.css\""
+        {
+            "on":      {"filechange": "./src/client/index.scss"},
+            "command": "sass --sourcemap=none \"./src/client/index.scss\" \"./firebase/public/index.css\""
+        }
     ]
 }
