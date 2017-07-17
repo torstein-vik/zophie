@@ -1,7 +1,8 @@
-const fs   = require("fs-extra");
-const path = require("path");
+const fs       = require("fs-extra");
+const path     = require("path");
 const execSync = require('child_process').execSync;
 const schema   = require('js-schema');
+const crypto   = require('crypto');
 
 // Specification of schema
 const onAlways = schema({
@@ -54,28 +55,35 @@ if(!jsonformat(build)){
 // Compile
 build = compileBuildScript(build);
 
-/*
+// Filter build object by whether or not to do something, and update hashes
+build = filterByEvents(build);
+
+
 // Copy files & directories
-build.copies.forEach(({from: src, to: target}) => {
+build.files.forEach(({from: src, to: target}) => {
     copy(path.join(src),path.join(target));
 });
 
 // Run commands
-build.commands.forEach((command) => {
-    var res = execSync(command);
-    console.log("Ran > " + command);
-    console.log("With output > " + res);
+build.commands.forEach(({command: command}) => {
+    try{
+        console.log("$ " + command);
+        execSync(command);
+    } catch (err) {
+        console.trace();
+    }
 });
 
+// Copy src to target
 function copy(src, target){
     try{
         fs.copySync(src, target);
         console.log("copied " + src + " to " + target);
     } catch (err) {
-        console.log(err);
+        console.trace();
     }
 }
-*/
+
 
 // Compiles the json file
 function compileBuildScript(build){
@@ -146,7 +154,7 @@ function compileBuildScript(build){
 
             types.forEach((type) => on[type] ? ontype = type : false);
 
-            onvalue = on[ontype];
+            onvalue = ontype === types[1] ? path.join(on[ontype]) : on[ontype];
 
             newbuild.commands.push({
                 command: command.command,
@@ -159,10 +167,46 @@ function compileBuildScript(build){
     return newbuild;
 }
 
-function hasChanged(){
+
+function filterByEvents(build){
+    let hashes = loadHashes();
+    let newhashes = {};
+
+    let types = {
+        always:     (value) => true,
+        never:      (value) => false,
+        filechange: (value) => testFileHash(value, hashes, newhashes)
+    }
+
+    let newbuild = {
+        files:    build.files.filter(({ontype: ontype, onvalue: onvalue}) => types[ontype](onvalue)),
+        commands: build.commands.filter(({ontype: ontype, onvalue: onvalue}) => types[ontype](onvalue))
+    }
+
+    fs.writeFile("./hashes.json", JSON.stringify(newhashes), function(err) {
+        if (err) console.log(err);
+
+        console.log("New hashes saved!");
+    });
+
+    return newbuild;
+}
+
+function testFileHash(file, hashes, newhashes){
+
+    let content = fs.readFileSync(file);
+    let hash = crypto.createHash('sha1').update(content).digest('hex');
+
+    newhashes[file] = hash;
+
+    return hash !== hashes[file];
 
 }
 
-function updateHashes(){
-
+function loadHashes(){
+    if(fs.existsSync('./hashes.json')){
+        return JSON.parse(fs.readFileSync('./hashes.json'));
+    } else {
+        return {};
+    }
 }
