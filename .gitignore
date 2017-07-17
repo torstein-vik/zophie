@@ -8,3 +8,4 @@
 /firebase/firebase-debug.log
 /.sass-cache/*
 /node_modules/*
+/hashes.json
