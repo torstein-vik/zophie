@@ -2,6 +2,9 @@ angular.module('zophie', ['ngRoute'])
 
 .config(function($routeProvider, $locationProvider){
     $routeProvider
+    .when('/', {
+        redirectTo: '/home'
+    })
     .when('/home', {
         templateUrl: 'templates/home.html',
         controller: 'ViewController'
