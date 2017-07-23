@@ -53,11 +53,24 @@ angular.module('zophie', ['ngRoute'])
         controller: 'ViewController',
         reqlogin: true
     })
+    .when('/requirelogin', {
+        templateUrl: 'templates/reqlogin.html',
+        controller: 'ViewController'
+    })
     .otherwise({
         templateUrl: 'templates/404.html'
     });
 
     $locationProvider.html5Mode(true);
+})
+
+.run(function($rootScope, $location){
+    $rootScope.$on('$routeChangeStart', function(event, next, current){
+        if(!$rootScope.loggedin && next.reqlogin){
+            event.preventDefault();
+            $location.path('/requirelogin');
+        }
+    });
 })
 
 .controller('MainController', function ($scope, $route, $routeParams, $location){
@@ -71,9 +84,7 @@ angular.module('zophie', ['ngRoute'])
 })
 
 .controller('ViewController', function($scope, $route, $routeParams, $location){
-    var reqlogin = $route.current.$$route.reqlogin ? true : false;
 
-    angular.element("html").scope().reqlogin = reqlogin;
 })
 
 .directive('tabOption', function() {
