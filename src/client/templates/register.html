@@ -1,8 +1,10 @@
-<form ng-controller="RegisterController as register" ng-submit="submit()">
-    <h3> Register </h3>
-    <input ng-model="email" type="email" placeholder="email" required>
-    <input ng-model="password1" type="password" placeholder="password" required>
-    <input ng-model="password2" type="password" placeholder="confirm password" required>
-    <input type="submit" value="Register">
-</form>
-<a href="/login"> Click here to log in instead </a>
+<div id="register-page">
+    <form ng-controller="RegisterController as register" ng-submit="submit()">
+        <h3> Register </h3>
+        <input ng-model="email" type="email" placeholder="email" required>
+        <input ng-model="password1" type="password" placeholder="password" required>
+        <input ng-model="password2" type="password" placeholder="confirm password" required>
+        <input type="submit" value="Register">
+    </form>
+    <a href="/login"> Click here to log in instead </a>
+</div>

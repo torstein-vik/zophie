@@ -10,6 +10,8 @@ html, body {
     margin: 0;
     font-size: 100%;
 
+
+    background-color: white;
 }
 
 // Style for links
@@ -136,4 +138,46 @@ content-container {
     padding: 10px;
 
     overflow-wrap: break-word;
+}
+
+// Containers for login and register
+#login-page, #register-page {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    max-width: 300px;
+
+    margin: 0 auto;
+
+    padding: 10px;
+
+    background-color: $theme;
+
+    form {
+
+
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+
+
+        h3 {
+            text-align: center;
+        }
+
+        input {
+
+
+
+            &[type='submit']{
+
+            }
+        }
+    }
+
+    a {
+
+    }
 }
