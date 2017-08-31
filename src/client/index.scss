@@ -197,7 +197,45 @@ content-container {
         }
     }
 
-    a {
+    #external-login {
+
+
+        & > a {
+
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+
+            &:first-child{
+                margin-top: 10px;
+            }
+
+
+            &#google-login {
+                background-color: red;
+
+            }
+
+            &#facebook-login {
+                background-color: blue;
+
+            }
+
+            &#twitter-login {
+                background-color: lightblue;
+                color: black;
+
+            }
+
+            &#github-login {
+                background-color: black;
+
+            }
+        }
+    }
+
+    & > a {
         margin-top: 20px;
         text-align: center;
     }
