@@ -57,6 +57,14 @@ angular.module('zophie', ['ngRoute'])
         templateUrl: 'templates/reqlogin.html',
         controller: 'ViewController'
     })
+    .when('/wait', {
+        templateUrl: "templates/wait.html",
+        controller: 'ViewController'
+    })
+    .when('/login/:authprovider', {
+        template: "",
+        controller: 'AuthProviderController'
+    })
     .otherwise({
         templateUrl: 'templates/404.html'
     });
@@ -66,9 +74,11 @@ angular.module('zophie', ['ngRoute'])
 
 .run(function($rootScope, $location){
     $rootScope.$on('$routeChangeStart', function(event, next, current){
-        if(!$rootScope.loggedin && next.reqlogin){
-            event.preventDefault();
-            $location.path('/requirelogin');
+        if(next.reqlogin){
+            if(!firebase.auth().currentUser){
+                event.preventDefault();
+                $location.path('/requirelogin');
+            }
         }
     });
 })
@@ -80,6 +90,13 @@ angular.module('zophie', ['ngRoute'])
     firebase.auth().onAuthStateChanged(function(user) {
         $scope.loggedin = (user != null);
         $scope.$apply();
+    });
+
+    firebase.auth().getRedirectResult().then(function(result) {
+        $location.path("/home");
+    }).catch(function(error) {
+        alert(error.message);
+        $location.path("/login");
     });
 })
 
@@ -142,3 +159,21 @@ angular.module('zophie', ['ngRoute'])
         });
     };
 })
+
+.controller('AuthProviderController', function($scope, $route, $routeParams, $location) {
+
+
+    let providername = $routeParams.authprovider;
+
+    let providerclass = {
+        google   : firebase.auth.GoogleAuthProvider,
+        facebook : firebase.auth.FacebookAuthProvider,
+        twitter  : firebase.auth.TwitterAuthProvider,
+        github   : firebase.auth.GithubAuthProvider,
+    }[providername];
+
+    let provider = new providerclass();
+
+    $location.path("/wait");
+    firebase.auth().signInWithRedirect(provider);
+});
