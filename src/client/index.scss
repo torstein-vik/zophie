@@ -161,21 +161,35 @@ content-container {
 
     background-color: $theme;
 
+    border-radius: 2px;
+
     form {
 
 
+        border-radius: 2px;
+
         background-color: white;
+        background: linear-gradient(to bottom, white, darken(white, 3%), darken(white, 1%), white);
         display: flex;
         flex-direction: column;
 
 
         h3 {
             text-align: center;
+            font-size: 150%;
         }
 
         input {
 
+            padding: 10px 30px;
+            margin:  10px;
 
+            font-size: 105%;
+
+            border: none;
+
+            //border: 1px solid black;
+            box-shadow: 0 0 1px black;
 
             &[type='submit']{
 
@@ -184,6 +198,7 @@ content-container {
     }
 
     a {
-
+        margin-top: 20px;
+        text-align: center;
     }
 }
