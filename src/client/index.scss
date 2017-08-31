@@ -2,6 +2,10 @@
 
 $theme: rgb(115 * 0.84 + (256 * 0.16), 214 * 0.84 + (256 * 0.16), 24 * 0.84 + (256 * 0.16));
 $theme-active: darken($theme, 10%);
+$theme-faded:  lighten($theme, 10%);
+$theme-faded-active: darken($theme-faded, 10%);
+
+$usernav-color: lighten(gray, 15%);
 
 // Global font and reset
 html, body {
@@ -51,8 +55,10 @@ h1 {
 header {
     width: 100%;
 
-    background-color: $theme;
+    background-color: $theme-faded;
     box-shadow: 0 0 10px black;
+
+    color: black;
 
     flex: 0 1 auto;
 
@@ -93,7 +99,7 @@ header {
             top: 0;
             right: 0;
 
-            background-color: gray;
+            background-color: $usernav-color;
 
             display: flex;
 
