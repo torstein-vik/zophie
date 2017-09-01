@@ -83,27 +83,6 @@ angular.module('zophie', ['ngRoute'])
     });
 })
 
-.controller('MainController', function ($scope, $route, $routeParams, $location){
-    $scope.loggedin = false;
-    $scope.reqlogin = false;
-
-    firebase.auth().onAuthStateChanged(function(user) {
-        $scope.loggedin = (user != null);
-        $scope.$apply();
-    });
-
-    firebase.auth().getRedirectResult().then(function(result) {
-        $location.path("/home");
-    }).catch(function(error) {
-        alert(error.message);
-        $location.path("/login");
-    });
-})
-
-.controller('ViewController', function($scope, $route, $routeParams, $location){
-
-})
-
 .directive('tabOption', function() {
 
     return {
@@ -124,6 +103,40 @@ angular.module('zophie', ['ngRoute'])
         template: '<div class="taboption" ng-class="{active: isActive()}" ng-click="select()" ng-transclude> </div>',
         replace: true
     }
+})
+
+.directive('markdown', function() {
+
+    let markdown = new showdown.Converter();
+
+    return {
+        restrict: 'E',
+        template: function(element){
+            return "<div class='markdown'>" + markdown.makeHtml(element.html()) + "</div>";
+        },
+        replace: true
+    }
+})
+
+.controller('MainController', function ($scope, $route, $routeParams, $location){
+    $scope.loggedin = false;
+    $scope.reqlogin = false;
+
+    firebase.auth().onAuthStateChanged(function(user) {
+        $scope.loggedin = (user != null);
+        $scope.$apply();
+    });
+
+    firebase.auth().getRedirectResult().then(function(result) {
+        $location.path("/home");
+    }).catch(function(error) {
+        alert(error.message);
+        $location.path("/login");
+    });
+})
+
+.controller('ViewController', function($scope, $route, $routeParams, $location){
+
 })
 
 .controller('LoginController', function($scope, $route, $routeParams, $location) {

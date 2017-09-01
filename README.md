@@ -53,6 +53,7 @@ Handled almost entirely by Firebase. At a later stage, firebase will use CoCalc'
 * Server-side: Node.js which recieves all events from the client-side, and delegates computational aspects to other services. Another idea could be to implement everything in javascript, but this seems slow and difficult. 
 * Client-side: Possibly Angular, but maybe React or Vue as well. Stylesheets using SASS/SCSS
 * Displaying math: MathJAX, hopefull server-side but maybe just client-side.
+* Markdown: Showdown 1.7.3
 
 #### Note
 
