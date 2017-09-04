@@ -175,18 +175,24 @@ angular.module('zophie', ['ngRoute'])
 
 .controller('AuthProviderController', function($scope, $route, $routeParams, $location) {
 
-
-    let providername = $routeParams.authprovider;
-
-    let providerclass = {
+    let providerclasses = {
         google   : firebase.auth.GoogleAuthProvider,
         facebook : firebase.auth.FacebookAuthProvider,
         twitter  : firebase.auth.TwitterAuthProvider,
         github   : firebase.auth.GithubAuthProvider,
-    }[providername];
+    };
 
-    let provider = new providerclass();
+    let providername = $routeParams.authprovider;
 
-    $location.path("/wait");
-    firebase.auth().signInWithRedirect(provider);
+    if(providerclasses[providername]){
+        let providerclass = providerclasses[providername];
+
+        let provider = new providerclass();
+
+        $location.path("/wait");
+        firebase.auth().signInWithRedirect(provider);
+    } else {
+        $location.path("/login");
+    }
+
 });
