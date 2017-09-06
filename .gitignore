@@ -9,3 +9,4 @@
 /.sass-cache/*
 /node_modules/*
 /hashes.json
+/package-lock.json
