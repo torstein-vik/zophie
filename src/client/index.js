@@ -112,7 +112,7 @@ angular.module('zophie', ['ngRoute'])
     return {
         restrict: 'E',
         template: function(element){
-            return "<div class='markdown'>" + markdown.makeHtml(element.html()) + "</div>";
+            return "<div class='markdown'>" + markdown.makeHtml(element.html().escapeHTML()) + "</div>";
         },
         replace: true
     }
