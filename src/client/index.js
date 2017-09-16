@@ -111,6 +111,9 @@ angular.module('zophie', ['ngRoute'])
 
     return {
         restrict: 'E',
+        controller: function($element){
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub, $element[0]]);
+        },
         template: function(element){
             return "<div class='markdown'>" + markdown.makeHtml(element.html().escapeHTML()) + "</div>";
         },
