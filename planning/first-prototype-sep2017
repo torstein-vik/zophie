@@ -1,0 +1,89 @@
+
+# 1st prototype for adding content (this is a "KLADD" produced on 18 Sep 2017, not at all finished)
+
+
+## Fundamental internal semantic concepts
+- Class
+- Machine
+- Category structure (on a class)
+- M
+
+
+## Link/button: Add new class
+- Name of class: E.g. "The set of undirected graphs"
+- Name of element, in singular: E.g. "Undirected graph"
+- Name of element, in plural: E.g. "Undirected graphs"
+
+
+
+
+## Link/button: Add new category
+Fields: 
+- Unique long description: E.g. "The category of topological spaces and continuous maps"
+- Standard abbreviation (if applicable): E.g. "Top"
+- Object name in singular form: E.g. "Topological space"
+- Object name in plural form: E.g. "Topological spaces"
+- Morphism name in singular form: E.g. "Continuous map"
+- Morphism name in plural form: E.g. "Continuous maps"
+- A list of property options, like "Is this an abelian category", with Yes/No/Open AFAWK/Unspecified
+- A field for addition notes, for example a complete mathematical definition, or notes about things that are unknown?
+
+Main challenge: Want to add for example the category of R-modules, where R is a commutative ring. 
+
+Note: Everything specified here should be automatically added to the list of 
+
+## Link/button: Add new model category
+
+
+## Link/button: Add new Tannakian category
+- Underlying category: 
+- Fiber functor... må tenke gjennom hva som skal til her.
+
+
+## Link/button: Add new enriched category
+
+------------
+
+
+
+
+
+
+
+
+
+- Question: Is this is a set? Y/N/OpenAFAIK/Skip for now
+- Question: Is this a proper class: Y/N/OpenAFAIK/Skip for now
+
+
+
+
+## Important exampes of classes:
+- Primes
+- Prime powers
+- Positive integers
+- Non-negative integers
+- Integers
+- Rationals
+- Reals
+- Complex numbers
+- Z/m for any positive integer m
+- F_q for any prime power q
+- Z_p for any prime p
+- C_p for any prime p
+- The adeles?
+
+
+## Link/button: Add new concept
+
+-------------
+
+## Link/button: Add new machine
+- Give name of machine in adjective form (if applicable)
+- Give name of machine in noun form (if applicable)
+- Give an ordered list of input types
+- Give an ordered list of output types
+
+
+
+
