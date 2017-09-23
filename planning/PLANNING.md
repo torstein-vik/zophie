@@ -22,6 +22,7 @@ We want to quickly include most of the main concepts of modern mathematics, rath
 - Functor. Every functor has a domain category and a target category. 
 - Partially defined functor. Every PD functor has a domain category and a target category.
 - Function: A machine where the input class and the output class are sets.
+- Partially defined function.
 
 
 This is just the beginning...
