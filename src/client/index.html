@@ -48,25 +48,30 @@
 
         <base href='/'>
     </head>
-    <body>
-        <header>
-            <h1>Zophie</h1>
-            <tabs>
-                <tab-option for="home"> Home </tab-option>
-                <tab-option for="ask"> Ask </tab-option>
-                <tab-option for="answer"> Answer </tab-option>
-                <tab-option for="addcontent"> Add content </tab-option>
-                <tab-option for="visualize"> Visualize </tab-option>
-                <tab-option for="about"> About </tab-option>
-                <user-nav>
-                    <tab-option ng-hide="loggedin" for="login"> Login </tab-option>
-                    <tab-option ng-hide="loggedin" for="register"> Register </tab-option>
-                    <tab-option ng-show="loggedin" for="mypage"> My page </tab-option>
-                    <tab-option ng-show="loggedin" for="logout"> Log out </tab-option>
-                </user-nav>
-            </tabs>
+    <body ng-init='menuOpen=false'>
+        <header menuOpen='{{menuOpen}}'>
+            <div id="title-container">
+                <h1>Zophie</h1>
+                <a ng-click='menuOpen=!menuOpen'> ☰ </a>
+            </div>
+            <div id="nav-container">
+                <nav>
+                    <a ng-click="menuOpen=false" href="/home" tab-option> Home </a>
+                    <a ng-click="menuOpen=false" href="/ask" tab-option> Ask </a>
+                    <a ng-click="menuOpen=false"href="/answer" tab-option> Answer </a>
+                    <a ng-click="menuOpen=false" href="/addcontent" tab-option> Add content </a>
+                    <a ng-click="menuOpen=false" href="/visualize" tab-option> Visualize </a>
+                    <a ng-click="menuOpen=false" href="/about" tab-option> About </a>
+                    <user-nav>
+                        <a ng-click="menuOpen=false" ng-hide="loggedin" href="/login" tab-option> Login </a>
+                        <a ng-click="menuOpen=false" ng-hide="loggedin" href="/register" tab-option> Register </a>
+                        <a ng-click="menuOpen=false" ng-show="loggedin" href="/mypage" tab-option> My page </a>
+                        <a ng-click="menuOpen=false" ng-show="loggedin" href="/logout" tab-option> Log out </a>
+                    </user-nav>
+                </nav>
+            </div>
         </header>
-        <content>
+        <content menuOpen='{{menuOpen}}'>
             <content-container>
                 <div ng-view>
                 </div>

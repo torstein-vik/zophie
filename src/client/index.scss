@@ -66,14 +66,22 @@ header {
 
     flex: 0 1 auto;
 
+
+    // Hide the 'hamburger icon', used in navigation menu for narrow screens
+    #title-container > a {
+        display: none;
+    }
+
     // The navigation part
-    tabs {
+    nav {
         display: flex;
         justify-content: space-around;
 
         // General navigation elements
-        & div.taboption{
+        & a{
             padding: 10px;
+
+            text-decoration: none;
 
             cursor: pointer;
             width: 100px;
@@ -92,7 +100,7 @@ header {
         }
 
         // Main navigation
-        & > div.taboption {
+        & > a {
             margin-bottom: 10px;
         }
 
@@ -108,6 +116,81 @@ header {
             display: flex;
 
         }
+    }
+}
+
+// Use a different header system when the screen is not wide enough
+@media screen and (max-width: 780px){
+    header {
+
+        // Show and place the 'hamburger icon'
+        #title-container > a {
+            display: block;
+            cursor: pointer;
+            font-size: 200%;
+            position: absolute;
+            right: 20px;
+            top: 0px;
+        }
+
+        // Normally hide navigation
+        nav {
+            display: none;
+        }
+
+        // If the menu is clicked open...
+        &[menuopen=true]{
+
+            // Cover the entire screen with nav
+            display: flex;
+            flex-direction: column;
+
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+
+            #nav-container{
+
+                // Setup scrolling
+                overflow-x: hidden;
+                overflow-y: scroll;
+
+                // The container with all the navigation elements
+                nav {
+
+                    height: 100%;
+
+                    // No longer hide navigation
+                    display: flex;
+                    flex-direction: column;
+
+
+
+                    // Remove margin and give full width to navigation elements
+                    a {
+                        width: 100%;
+                        margin: 0;
+                    }
+
+                    // Move user-nav into the list with the other navigation elements
+                    user-nav {
+
+                        position: static;
+                        display: flex;
+                        flex-direction: column;
+                    }
+                }
+            }
+        }
+
+
+    }
+
+    // Hide content when menu is open
+    content[menuopen=true] {
+        display: none;
     }
 }
 

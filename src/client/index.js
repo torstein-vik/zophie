@@ -42,22 +42,18 @@ angular.module('zophie', ['ngRoute'])
 .directive('tabOption', function() {
 
     return {
-        restrict: 'E',
-        transclude: true,
-        scope: { for: '@' },
-        controller: function($scope, $element, $route, $routeParams, $location){
-
-            $scope.select = function () {
-                $location.path($scope.for);
-            };
+        restrict: 'A',
+        scope: { href: '@' },
+        controller: function($scope, $location, $rootScope){
 
             $scope.isActive = function () {
-                return $location.path().substr(1, $scope.for.length) == $scope.for;
+                return $location.path() == $scope.href;
             };
 
         },
-        template: '<div class="taboption" ng-class="{active: isActive()}" ng-click="select()" ng-transclude> </div>',
-        replace: true
+        replace: true,
+        transclude: true,
+        template: '<a ng-class="{active: isActive()}" ng-transclude></a>'
     }
 })
 
