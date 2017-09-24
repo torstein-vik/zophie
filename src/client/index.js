@@ -1,86 +1,42 @@
 angular.module('zophie', ['ngRoute'])
 
+// Setting up routing
 .config(function($routeProvider, $locationProvider){
-    $routeProvider
-    .when('/', {
-        redirectTo: '/home'
-    })
-    .when('/home', {
-        templateUrl: 'templates/home.html',
-        controller: 'ViewController'
-    })
-    .when('/ask', {
-        templateUrl: 'templates/ask.html',
-        controller: 'ViewController'
-    })
-    .when('/ask/q=:query', {
-        templateUrl: 'templates/query.html',
-        controller: 'ViewController'
-    })
-    .when('/answer', {
-        templateUrl: 'templates/answer.html',
-        controller: 'ViewController',
-        reqlogin: true
-    })
-    .when('/addcontent', {
-        templateUrl: 'templates/addcontent.html',
-        controller: 'ViewController',
-        reqlogin: true
-    })
-    .when('/visualize', {
-        templateUrl: 'templates/visualize.html',
-        controller: 'ViewController'
-    })
-    .when('/about', {
-        templateUrl: 'templates/about.html',
-        controller: 'ViewController'
-    })
-    .when('/login', {
-        templateUrl: 'templates/login.html',
-        controller: 'ViewController'
-    })
-    .when('/register', {
-        templateUrl: 'templates/register.html',
-        controller: 'ViewController'
-    })
-    .when('/mypage', {
-        templateUrl: 'templates/mypage.html',
-        controller: 'ViewController',
-        reqlogin: true
-    })
-    .when('/logout', {
-        templateUrl: 'templates/logout.html',
-        controller: 'ViewController',
-        reqlogin: true
-    })
-    .when('/requirelogin', {
-        templateUrl: 'templates/reqlogin.html',
-        controller: 'ViewController'
-    })
-    .when('/wait', {
-        templateUrl: "templates/wait.html",
-        controller: 'ViewController'
-    })
-    .when('/login/:authprovider', {
-        template: "",
-        controller: 'AuthProviderController'
-    })
-    .otherwise({
+
+    // Use zophieRoutes from routes.js to declare all the $routeProvider.when's.
+    $.each(zophieRoutes, function(path, data){
+        var route = {
+            templateUrl: data.url,
+            template:    data.template,
+            controller:  data.controller || 'ViewController',
+            redirectTo:  data.redirectTo
+        };
+
+        if(data.reqlogin){
+            route.resolve = { load: function($q, $location){
+                var deferred = $q.defer();
+
+                $(function(){
+                    if(firebase.auth().currentUser){
+                        deferred.resolve();
+                    } else {
+                        $location.path('/reqlogin');
+                        deferred.reject();
+                    }
+                });
+
+                return deferred.promise;
+            }};
+        }
+
+        $routeProvider.when(path, route);
+    });
+
+    $routeProvider.otherwise({
         templateUrl: 'templates/404.html'
     });
 
     $locationProvider.html5Mode(true);
-})
-
-.run(function($rootScope, $location){
-    $rootScope.$on('$routeChangeStart', function(event, next, current){
-        if(next.reqlogin){
-            if(!firebase.auth().currentUser){
-                event.preventDefault();
-                $location.path('/requirelogin');
-            }
-        }
-    });
 })
 
 .directive('tabOption', function() {
@@ -131,7 +87,9 @@ angular.module('zophie', ['ngRoute'])
     });
 
     firebase.auth().getRedirectResult().then(function(result) {
-        $location.path("/home");
+        if(result.user != null){
+            $location.path("/home");
+        }
     }).catch(function(error) {
         alert(error.message);
         $location.path("/login");
