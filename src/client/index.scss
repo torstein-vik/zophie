@@ -327,3 +327,34 @@ content-container {
         text-align: center;
     }
 }
+
+
+#addcontent-menu {
+
+
+    width: 240px;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+
+    a {
+        box-shadow: 0 0 2px black;
+
+        padding: 20px;
+        width: 200px;
+
+        margin-top: 10px;
+
+        text-decoration: none;
+
+        &:nth-child(1){
+            background-color: adjust-hue($theme-faded, 105);
+        }
+
+        &:nth-child(2){
+            background-color: adjust-hue($theme-faded, 270);
+        }
+
+    }
+}
