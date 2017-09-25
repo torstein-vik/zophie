@@ -16,7 +16,8 @@ angular.module('zophie', ['ngRoute'])
             route.resolve = { load: function($q, $location){
                 var deferred = $q.defer();
 
-                $(function(){
+                // This is very hacky but AFAIK firebase provides no promise object for simply having loaded currentUser
+                firebase.auth().getRedirectResult().then(function(){
                     if(firebase.auth().currentUser){
                         deferred.resolve();
                     } else {
