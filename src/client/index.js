@@ -161,8 +161,12 @@ angular.module('zophie', ['ngRoute'])
         restrict: 'E',
         controller: function($scope, $element){
             $scope.cards = [{text: "test1", title: "t1"}, {text: "test2", title: "t2"}];
+
+            $scope.addcard = function(){
+                $scope.cards.push({text: "text", title:"title"});
+            };
         },
-        template: '<div class="cards"> <div ng-repeat="card in cards"> <div class="card-title"> <h4> {{card.title}} </h4> <a ng-click="cards.splice($index, 1)"> X </a> </div> <div class="card-content"> {{card.text}} </div> </div> </div>',
+        template: '<div class="cards"> <div ng-repeat="card in cards"> <div class="card-title"> <h4> {{card.title}} </h4> <a ng-click="cards.splice($index, 1)"> X </a> </div> <div class="card-content"> {{card.text}} </div> </div> <div class="addcard" ng-click="addcard()"> + </div> </div>',
         replace: true
     };
 });

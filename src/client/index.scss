@@ -402,13 +402,25 @@ content-container {
 
             // remove-button
             a {
-
+                cursor: pointer;
             }
         }
 
         // Card content
         & > div.card-content {
             padding: 10px;
+        }
+
+        &.addcard {
+            cursor: pointer;
+
+            background-color: lighten(desaturate($theme-faded, 100%), 20%);
+
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 400%;
         }
     }
 }
