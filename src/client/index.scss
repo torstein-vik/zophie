@@ -328,7 +328,7 @@ content-container {
     }
 }
 
-
+// Menu for redirecting to addmachine and addclass
 #addcontent-menu {
 
 
@@ -338,6 +338,7 @@ content-container {
     display: flex;
     flex-direction: column;
 
+    // Menu elements
     a {
         box-shadow: 0 0 2px black;
 
@@ -347,6 +348,8 @@ content-container {
         margin-top: 10px;
 
         text-decoration: none;
+
+        // Individual colors, $theme-faded with other hues
 
         &:nth-child(1){
             background-color: adjust-hue($theme-faded, 105);
