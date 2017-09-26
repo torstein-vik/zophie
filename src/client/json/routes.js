@@ -19,6 +19,14 @@ var zophieRoutes = {
         "url":"templates/addcontent.html",
         "reqlogin":true
     },
+    "/addcontent/addclass":{
+        "url":"templates/addclass.html",
+        "reqlogin":true
+    },
+    "/addcontent/addmachine":{
+        "url":"templates/addmachine.html",
+        "reqlogin":true
+    },
     "/visualize":{
         "url":"templates/visualize.html"
     },
