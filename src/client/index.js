@@ -153,4 +153,16 @@ angular.module('zophie', ['ngRoute'])
         $location.path("/login");
     }
 
+})
+
+.directive('cards', function() {
+
+    return {
+        restrict: 'E',
+        controller: function($scope, $element){
+            $scope.cards = [{text: "test1", title: "t1"}, {text: "test2", title: "t2"}];
+        },
+        template: '<div class="cards"> <div ng-repeat="card in cards"> <div class="card-title"> <h4> {{card.title}} </h4> <a ng-click="cards.splice($index, 1)"> X </a> </div> <div class="card-content"> {{card.text}} </div> </div> </div>',
+        replace: true
+    };
 });
