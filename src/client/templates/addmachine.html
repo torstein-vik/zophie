@@ -1,5 +1,13 @@
-addmachine
+<div id="addmachine">
 
-<cards title="{{card.title || 'Input ' + ($index + 1)}}">
-    <markdown> ## entotre *Heisan* </markdown>
-</cards>
+    <cards title="{{card.title || 'Input ' + ($index + 1)}}">
+        <div class="inputcard machinecard" ng-click="open()" controller="MachinecardController"> </div>
+    </cards>
+
+    Machine
+
+    <cards title="{{card.title || 'Output ' + ($index + 1)}}">
+        <div class="outputcard machinecard" ng-click="open()" controller="MachinecardController"> </div>
+    </cards>
+
+</div>

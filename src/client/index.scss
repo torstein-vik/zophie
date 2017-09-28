@@ -430,3 +430,35 @@ content-container {
         }
     }
 }
+
+// Add machine css
+#addmachine {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    // Cards in the sense of machine spec
+    .cards {
+
+
+        // Individual card content divs
+        .machinecard {
+
+                cursor: pointer;
+
+                flex: 1 0 auto;
+
+            // For the case of inputcards
+            &.inputcard {
+
+            }
+
+            // For the case of outputcards
+            &.outputcard {
+
+            }
+        }
+    }
+}

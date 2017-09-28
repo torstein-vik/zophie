@@ -172,4 +172,10 @@ angular.module('zophie', ['ngRoute'])
         },
         replace: true
     };
+})
+
+.controller('MachinecardController', function($scope){
+    $scope.open = function(){
+
+    }
 });
