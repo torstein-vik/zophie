@@ -94,7 +94,7 @@ angular.module('zophie', ['ngRoute'])
 })
 
 .controller('ViewController', function($scope, $route, $routeParams, $location){
-
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
 })
 
 .controller('LoginController', function($scope, $route, $routeParams, $location) {
