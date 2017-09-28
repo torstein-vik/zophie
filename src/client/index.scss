@@ -409,6 +409,8 @@ content-container {
         // Card content
         & > div.card-content {
             padding: 10px;
+
+            flex: 1 0 auto;
         }
 
         &.addcard {
