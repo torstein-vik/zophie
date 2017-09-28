@@ -167,7 +167,7 @@ angular.module('zophie', ['ngRoute'])
             };
         },
         template: function(element){
-            return '<div class="cards"> <div ng-repeat="card in cards"> <div class="card-title"> <h4> ' + (element.attr("title") || "{{card.title}}") + ' </h4> <a ng-click="cards.splice($index, 1)"> X </a> </div> <div class="card-content"> {{card.text}} </div> </div> <div class="addcard" ng-click="addcard()"> + </div> </div>';
+            return '<div class="cards"> <div ng-repeat="card in cards"> <div class="card-title"> <h4> ' + (element.attr("title") || "{{card.title}}") + ' </h4> <a ng-click="cards.splice($index, 1)"> X </a> </div> <div class="card-content"> ' + element.html() + ' </div> </div> <div class="addcard" ng-click="addcard()"> + </div> </div>';
         },
         replace: true
     };
