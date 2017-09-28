@@ -159,8 +159,9 @@ angular.module('zophie', ['ngRoute'])
 
     return {
         restrict: 'E',
+        scope: {},
         controller: function($scope, $element){
-            $scope.cards = [{text: "test1", title: "t1"}, {text: "test2", title: "t2"}];
+            $scope.cards = [];
 
             $scope.addcard = function(){
                 $scope.cards.push({text: "text"});
