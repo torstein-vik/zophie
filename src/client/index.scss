@@ -368,6 +368,7 @@ content-container {
     // Layout of cards
     display: flex;
 
+    align-items: center;
 
     // Specific card
     & > div {
@@ -427,6 +428,12 @@ content-container {
             align-items: center;
 
             font-size: 400%;
+
+            height: 120px;
+        }
+
+        &.addcard-balancer {
+            visibility: hidden;
         }
     }
 }
