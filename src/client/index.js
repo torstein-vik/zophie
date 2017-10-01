@@ -94,7 +94,7 @@ angular.module('zophie', ['ngRoute'])
 })
 
 .controller('ViewController', function($scope, $route, $routeParams, $location){
-
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
 })
 
 .controller('LoginController', function($scope, $route, $routeParams, $location) {
@@ -153,4 +153,30 @@ angular.module('zophie', ['ngRoute'])
         $location.path("/login");
     }
 
+})
+
+.directive('cards', function() {
+
+    return {
+        restrict: 'E',
+        scope: {},
+        controller: function($scope, $element){
+            $scope.cards = [];
+
+            $scope.addcard = function(){
+                $scope.cards.push({text: "text"});
+            };
+        },
+        template: function(element){
+            return '<div class="cards"> <div class="addcard-balancer ignore"></div> <div ng-repeat="card in cards"> <div class="card-title"> <h4> ' + (element.attr("title") || "{{card.title}}") + ' </h4> <a ng-click="cards.splice($index, 1)"> X </a> </div> <div class="card-content"> ' + element.html() + ' </div> </div> <div class="addcard ignore" ng-click="addcard()"> + </div> </div>';
+        },
+        replace: true
+    };
+})
+
+.controller('MachineController', function($scope){
+    $scope.sidebar_open = false;
+    $scope.$on('open_sidebar', function(x){
+        console.log(x);
+    });
 });

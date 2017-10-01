@@ -361,3 +361,111 @@ content-container {
 
     }
 }
+
+// lists of cards, used for defining machine
+.cards {
+
+    // Layout of cards
+    display: flex;
+
+    align-items: center;
+
+    // Specific card
+    & > div {
+
+        // Width and height of cards. Subject to change.
+        width: 120px;
+        height: 150px;
+
+        background-color: $theme-faded;
+
+        margin: 10px;
+
+        // Layout of title-content
+        display: flex;
+        flex-direction: column;
+
+        // Card title
+        & > div.card-title {
+
+            height: 20px;
+
+            margin: 0 10px;
+
+            // Layout of title and remove-button
+            display: flex;
+            justify-content: space-between;
+
+            // title
+            h4 {
+               margin: 0;
+            }
+
+            // remove-button
+            a {
+                cursor: pointer;
+            }
+        }
+
+        // Card content
+        & > div.card-content {
+            padding: 10px;
+
+            flex: 1 0 auto;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        &.addcard {
+            cursor: pointer;
+
+            background-color: lighten(desaturate($theme-faded, 100%), 20%);
+
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 400%;
+
+            height: 120px;
+        }
+
+        &.addcard-balancer {
+            visibility: hidden;
+        }
+    }
+}
+
+// Add machine css
+#addmachine {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    // Cards in the sense of machine spec
+    .cards {
+
+
+        // Individual card content divs
+        .machinecard {
+
+                cursor: pointer;
+
+                flex: 1 0 auto;
+
+            // For the case of inputcards
+            &.inputcard {
+
+            }
+
+            // For the case of outputcards
+            &.outputcard {
+
+            }
+        }
+    }
+}
