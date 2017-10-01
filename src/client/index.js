@@ -174,8 +174,9 @@ angular.module('zophie', ['ngRoute'])
     };
 })
 
-.controller('MachinecardController', function($scope){
-    $scope.open = function(){
-
-    }
+.controller('MachineController', function($scope){
+    $scope.sidebar_open = false;
+    $scope.$on('open_sidebar', function(x){
+        console.log(x);
+    });
 });

@@ -1,13 +1,15 @@
-<div id="addmachine">
+<div id="addmachine" controller="MachineController">
 
     <cards title="{{card.title || 'Input ' + ($index + 1)}}">
-        <div class="inputcard machinecard" ng-click="open()" controller="MachinecardController"> </div>
+        <div class="inputcard machinecard" ng-click="$emit('open_sidebar', $index)"> </div>
     </cards>
 
     Machine
 
     <cards title="{{card.title || 'Output ' + ($index + 1)}}">
-        <div class="outputcard machinecard" ng-click="open()" controller="MachinecardController"> </div>
+        <div class="outputcard machinecard" ng-click="$emit('open_sidebar', $index)"> </div>
     </cards>
+
+    <div class="sidebar" ng-show="sidebar_open"> </div>
 
 </div>
