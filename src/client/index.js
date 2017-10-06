@@ -173,17 +173,25 @@ angular.module('zophie', ['ngRoute'])
             $scope.close = function () {
                 $scope.opened = false;
                 $scope.$emit('modal-uncover');
-            }
+            };
 
             $scope.open = function() {
                 $scope.opened = true;
                 $scope.$emit('modal-cover');
-            }
+            };
+
+            $scope.$on('modal-open', function() {
+                $scope.open();
+            });
+
+            $scope.$on('modal-close', function() {
+                $scope.close();
+            });
 
         },
         replace: true,
         transclude: true,
-        template: "<div class='modal' ng-show='opened'> <div class='modal-title'> <h2> {{title}} </h2> <a ng-click='close()'> X </a> </div> <div class='modal-content' ng-transclude> </div> </div>"
+        template: "<div class='modal' ng-show='opened'> <div class='modal-title'> <h2> {{title}} </h2> <a ng-click='close(); $event.stopPropagation()'> X </a> </div> <div class='modal-content' ng-transclude> </div> </div>"
 
     }
 })
