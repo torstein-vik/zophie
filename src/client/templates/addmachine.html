@@ -1,15 +1,17 @@
 <div id="addmachine" ng-controller="MachineController">
 
     <cards title="{{card.title || 'Input ' + ($index + 1)}}">
-        <div class="inputcard machinecard" ng-click="$emit('open_sidebar', card)"> </div>
+        <div class="inputcard machinecard" ng-click="$broadcast('modal-open')">
+            <modal title="{{card.title}}"> {{card.text}} </modal>
+        </div>
     </cards>
 
     Machine
 
     <cards title="{{card.title || 'Output ' + ($index + 1)}}">
-        <div class="outputcard machinecard" ng-click="$emit('open_sidebar', card)"> </div>
+        <div class="outputcard machinecard" ng-click="$broadcast('modal-open')">
+            <modal title="{{card.title}}"> {{card.text}} </modal>
+        </div>
     </cards>
-
-    <modal title="Modal test"> heyhey </modal>
 
 </div>
