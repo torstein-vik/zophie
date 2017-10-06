@@ -175,11 +175,5 @@ angular.module('zophie', ['ngRoute'])
 })
 
 .controller('MachineController', function($scope){
-    $scope.sidebar_open = false;
-    $scope.$on('open_sidebar', function(event, card){
-        $scope.sidebar_open = true;
-        $scope.sidebar_data = card;
 
-
-    });
 });
