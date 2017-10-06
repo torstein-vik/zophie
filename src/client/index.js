@@ -78,6 +78,13 @@ angular.module('zophie', ['ngRoute'])
     $scope.loggedin = false;
     $scope.reqlogin = false;
 
+    $scope.$on('modal-cover', function () {
+        $scope.modalcover = true;
+    });
+    $scope.$on('modal-uncover', function () {
+        $scope.modalcover = false;
+    });
+
     firebase.auth().onAuthStateChanged(function(user) {
         $scope.loggedin = (user != null);
         $scope.$apply();
@@ -153,6 +160,32 @@ angular.module('zophie', ['ngRoute'])
         $location.path("/login");
     }
 
+})
+
+.directive('modal', function() {
+
+    return {
+        restrict: 'E',
+        scope: { title: '@' },
+        controller: function($scope){
+            $scope.opened = false;
+
+            $scope.close = function () {
+                $scope.opened = false;
+                $scope.$emit('modal-uncover');
+            }
+
+            $scope.open = function() {
+                $scope.opened = true;
+                $scope.$emit('modal-cover');
+            }
+
+        },
+        replace: true,
+        transclude: true,
+        template: "<div class='modal' ng-show='opened'> <div class='modal-title'> <h2> {{title}} </h2> <a ng-click='close()'> X </a> </div> <div class='modal-content' ng-transclude> </div> </div>"
+
+    }
 })
 
 .directive('cards', function() {
