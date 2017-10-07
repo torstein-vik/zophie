@@ -200,7 +200,7 @@ angular.module('zophie', ['ngRoute'])
 
     return {
         restrict: 'E',
-        scope: { title: '@' },
+        scope: { title: '@', id: '@' },
         controller: function($scope, $element){
             $scope.cards = [];
 
@@ -224,7 +224,18 @@ angular.module('zophie', ['ngRoute'])
 })
 
 .controller('MachineController', function($scope, $element){
-    $scope.$on('update_cards', function(event, value){
+    var canvas = document.getElementById("addmachine-canvas");
+    var ctx = canvas.getContext('2d');
 
+    $scope.data = { inputs: [], outputs: [] };
+
+    function draw(){
+
+    }
+
+    $scope.$on('update_cards', function(event, value){
+        $scope.data[event.targetScope.id] = value;
+
+        draw();
     });
 });

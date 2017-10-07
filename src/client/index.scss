@@ -495,11 +495,13 @@ content-container {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
+    align-items: stretch;
 
     // Cards in the sense of machine spec
     .cards {
 
+
+        justify-content: center;
 
         // Individual card content divs
         .machinecard {
@@ -522,5 +524,9 @@ content-container {
 
     .modal {
         cursor: initial;
+    }
+
+    canvas {
+        height: 200px;
     }
 }

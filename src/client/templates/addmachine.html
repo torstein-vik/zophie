@@ -1,6 +1,6 @@
 <div id="addmachine" ng-controller="MachineController">
 
-    <cards title="Input">
+    <cards id="inputs" title="Input">
         <div class="inputcard machinecard" ng-click="$broadcast('modal-open')">
             <modal title="{{card.title}}">
                 <input type="text" ng-model="card.title">
@@ -8,9 +8,9 @@
         </div>
     </cards>
 
-    Machine
+    <canvas id="addmachine-canvas"> </canvas>
 
-    <cards title="Output">
+    <cards id="outputs" title="Output">
         <div class="outputcard machinecard" ng-click="$broadcast('modal-open')">
             <modal title="{{card.title}}">
                 <input type="text" ng-model="card.title">
