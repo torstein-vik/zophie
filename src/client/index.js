@@ -200,16 +200,21 @@ angular.module('zophie', ['ngRoute'])
 
     return {
         restrict: 'E',
-        scope: {},
+        scope: { title: '@' },
         controller: function($scope, $element){
             $scope.cards = [];
 
+            $scope.lastnum = 0;
+
             $scope.addcard = function(){
-                $scope.cards.push({text: "text"});
+                $scope.lastnum++;
+                $scope.cards.push({text: "text", title: $scope.title + " " + $scope.lastnum});
             };
+
+
         },
         template: function(element){
-            return '<div class="cards"> <div class="addcard-balancer ignore"></div> <div ng-repeat="card in cards"> <div class="card-title"> <h4> ' + (element.attr("title") || "{{card.title}}") + ' </h4> <a ng-click="cards.splice($index, 1)"> X </a> </div> <div class="card-content"> ' + element.html() + ' </div> </div> <div class="addcard ignore" ng-click="addcard()"> + </div> </div>';
+            return '<div class="cards"> <div class="addcard-balancer ignore"></div> <div ng-repeat="card in cards"> <div class="card-title"> <h4> {{card.title}} </h4> <a ng-click="cards.splice($index, 1)"> X </a> </div> <div class="card-content"> ' + element.html() + ' </div> </div> <div class="addcard ignore" ng-click="addcard()"> + </div> </div>';
         },
         replace: true
     };
