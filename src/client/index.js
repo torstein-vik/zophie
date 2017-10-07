@@ -211,6 +211,10 @@ angular.module('zophie', ['ngRoute'])
                 $scope.cards.push({text: "text", title: $scope.title + " " + $scope.lastnum});
             };
 
+            $scope.$on('request_cards', function(){
+                $scope.$emit('response_cards', cards: cards);
+            });
+
 
         },
         template: function(element){
