@@ -208,7 +208,7 @@ angular.module('zophie', ['ngRoute'])
 
             $scope.addcard = function(){
                 $scope.lastnum++;
-                $scope.cards.push({text: "text", title: $scope.title + " " + $scope.lastnum});
+                $scope.cards.push({title: $scope.title + " " + $scope.lastnum});
             };
 
             $scope.$watchCollection('cards', function(cards){
