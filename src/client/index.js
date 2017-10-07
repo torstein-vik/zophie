@@ -232,21 +232,19 @@ angular.module('zophie', ['ngRoute'])
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
-    function drawmachine(w, h){
+    function drawmachine(w, h, mw, mh){
 
         // anchor coordinates, center of machine
         var ax = w/2, ay = h/2;
 
-        // width and height of machine
-        var mw = 100, my = 100;
 
         // main rectangle of machine
-        ctx.moveTo(ax - mw / 2, ay - my / 2);
+        ctx.moveTo(ax - mw / 2, ay - mh / 2);
 
-        ctx.lineTo(ax + mw / 2, ay - my / 2);
-        ctx.lineTo(ax + mw / 2, ay + my / 2);
-        ctx.lineTo(ax - mw / 2, ay + my / 2);
-        ctx.lineTo(ax - mw / 2, ay - my / 2);
+        ctx.lineTo(ax + mw / 2, ay - mh / 2);
+        ctx.lineTo(ax + mw / 2, ay + mh / 2);
+        ctx.lineTo(ax - mw / 2, ay + mh / 2);
+        ctx.lineTo(ax - mw / 2, ay - mh / 2);
 
         ctx.fillStyle = "red";
         ctx.strokeStyle = "black";
@@ -259,7 +257,11 @@ angular.module('zophie', ['ngRoute'])
         var w = canvas.width;
         var h = canvas.height;
 
-        drawmachine(w, h);
+        // width and height of machine
+        var mw = 100, mh = 100;
+
+        drawmachine(w, h, mw, mh);
+
 
     }
 
