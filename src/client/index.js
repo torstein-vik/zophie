@@ -211,10 +211,9 @@ angular.module('zophie', ['ngRoute'])
                 $scope.cards.push({text: "text", title: $scope.title + " " + $scope.lastnum});
             };
 
-            $scope.$on('request_cards', function(){
-                $scope.$emit('response_cards', cards: cards);
+            $scope.$watchCollection('cards', function(cards){
+                $scope.$emit('update_cards', cards);
             });
-
 
         },
         template: function(element){
@@ -224,6 +223,8 @@ angular.module('zophie', ['ngRoute'])
     };
 })
 
-.controller('MachineController', function($scope){
+.controller('MachineController', function($scope, $element){
+    $scope.$on('update_cards', function(event, value){
 
+    });
 });
