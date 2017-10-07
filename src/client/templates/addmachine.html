@@ -2,7 +2,9 @@
 
     <cards title="Input">
         <div class="inputcard machinecard" ng-click="$broadcast('modal-open')">
-            <modal title="{{card.title}}"> {{card.text}} </modal>
+            <modal title="{{card.title}}">
+                <input type="text" ng-model="card.title">
+            </modal>
         </div>
     </cards>
 
@@ -10,7 +12,9 @@
 
     <cards title="Output">
         <div class="outputcard machinecard" ng-click="$broadcast('modal-open')">
-            <modal title="{{card.title}}"> {{card.text}} </modal>
+            <modal title="{{card.title}}">
+                <input type="text" ng-model="card.title">
+            </modal>
         </div>
     </cards>
 
