@@ -263,6 +263,32 @@ angular.module('zophie', ['ngRoute'])
         drawmachine(w, h, mw, mh);
 
 
+        $scope.data.inputs.forEach(function(input, index, array){
+            // retrive the dom element, +2 to ignore addcard-balancer
+            var inputDOM = $("#inputs > div:nth-child(" + (index + 2) + ")");
+
+            // amount of inputs
+            var l = array.length;
+
+            // start and finish coords
+            var sx, sy, fx, fy;
+
+            // control points coords
+            var cpx1, cpy1, cpx2, cpy2;
+
+            sx = 0;
+            sy = 0;
+
+            fx = 0;
+            fy = w / 2 - mw / 2;
+
+            // stroking coords
+            ctx.moveTo(sx, sy);
+            ctx.bezierCurveTo(cpx1, cpy1, cpx2, cpy2, fx, fy);
+
+            ctx.strokeStyle = "black";
+            ctx.stroke();
+        });
     }
 
     $scope.$on('update_cards', function(event, value){
