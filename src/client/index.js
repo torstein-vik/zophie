@@ -260,6 +260,18 @@ angular.module('zophie', ['ngRoute'])
         }
     });
 
+    canvas.addEventListener('click', function(event){
+        var x = event.offsetX;
+        var y = event.offsetY;
+
+        domachinepath(canvas.width, canvas.height);
+
+        if (ctx.isPointInPath(x, y)){
+            $scope.$broadcast('modal-open', 'machinesettings');
+            $scope.$apply();
+        }
+    });
+
     function domachinepath(w, h){
 
         // anchor coordinates, center of machine
