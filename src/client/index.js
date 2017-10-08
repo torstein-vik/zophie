@@ -166,7 +166,7 @@ angular.module('zophie', ['ngRoute'])
 
     return {
         restrict: 'E',
-        scope: { title: '@' },
+        scope: { title: '@', id: '@' },
         controller: function($scope){
             $scope.opened = false;
 
@@ -180,12 +180,16 @@ angular.module('zophie', ['ngRoute'])
                 $scope.$emit('modal-cover');
             };
 
-            $scope.$on('modal-open', function() {
-                $scope.open();
+            $scope.$on('modal-open', function(event, id) {
+                if(id === undefined || (id !== undefined && id === $scope.id)) {
+                   $scope.open();
+                }
             });
 
-            $scope.$on('modal-close', function() {
-                $scope.close();
+            $scope.$on('modal-close', function(event, id) {
+                if(id === undefined || (id !== undefined && id === $scope.id)) {
+                    $scope.close();
+                }
             });
 
         },
