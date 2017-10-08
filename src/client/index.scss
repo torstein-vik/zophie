@@ -497,6 +497,10 @@ content-container {
     justify-content: flex-start;
     align-items: stretch;
 
+    h2 {
+       text-align: center;
+    }
+
     // Cards in the sense of machine spec
     .cards {
 

@@ -231,7 +231,7 @@ angular.module('zophie', ['ngRoute'])
     var canvas = document.getElementById("addmachine-canvas");
     var ctx = canvas.getContext('2d');
 
-    $scope.data = { inputs: [], outputs: [] };
+    $scope.data = { title: "Machine", inputs: [], outputs: [] };
 
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;

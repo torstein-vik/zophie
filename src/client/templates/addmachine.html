@@ -1,5 +1,7 @@
 <div id="addmachine" ng-controller="MachineController">
 
+    <h2> {{ data.title }} </h2>
+
     <cards id="inputs" title="Input">
         <div class="inputcard machinecard" ng-click="$broadcast('modal-open')">
             <modal title="{{card.title}}">
@@ -10,8 +12,8 @@
 
     <canvas id="addmachine-canvas" />
 
-    <modal title="Machine Settings" id="machinesettings">
-
+    <modal title="Settings for {{data.title}}" id="machinesettings">
+        <input type="text" ng-model="data.title">
     </modal>
 
     <cards id="outputs" title="Output">
