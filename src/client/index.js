@@ -232,6 +232,13 @@ angular.module('zophie', ['ngRoute'])
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
+    window.addEventListener('resize', function(){
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+
+        draw();
+    });
+
     function drawmachine(w, h, mw, mh){
 
         // anchor coordinates, center of machine
@@ -239,6 +246,7 @@ angular.module('zophie', ['ngRoute'])
 
 
         // main rectangle of machine
+        ctx.beginPath();
         ctx.moveTo(ax - mw / 2, ay - mh / 2);
 
         ctx.lineTo(ax + mw / 2, ay - mh / 2);
@@ -257,6 +265,8 @@ angular.module('zophie', ['ngRoute'])
         var w = canvas.width;
         var h = canvas.height;
 
+        ctx.clearRect(0, 0, w, h);
+
         // width and height of machine
         var mw = 100, mh = 100;
 
@@ -265,7 +275,7 @@ angular.module('zophie', ['ngRoute'])
 
         $scope.data.inputs.forEach(function(input, index, array){
             // retrive the dom element, +2 to ignore addcard-balancer
-            var inputDOM = $("#inputs > div:nth-child(" + (index + 2) + ")");
+            var inputDOM = $("#inputs > div:nth-child(" + (index + 2) + ")")[0];
 
             // amount of inputs
             var l = array.length;
@@ -276,13 +286,20 @@ angular.module('zophie', ['ngRoute'])
             // control points coords
             var cpx1, cpy1, cpx2, cpy2;
 
-            sx = 0;
+            sx = inputDOM.offsetLeft + (inputDOM.clientWidth / 2) - canvas.offsetLeft;
             sy = 0;
 
-            fx = 0;
-            fy = w / 2 - mw / 2;
+            fx = w / 2 + ((index - (l - 1) / 2) / l * mw / 2);
+            fy = h / 2 - mh / 2 - 10;
+
+            cpx1 = sx;
+            cpy1 = fy + Math.abs(index - (l - 1) / 2) * 10;
+
+            cpx2 = fx;
+            cpy2 = sy + Math.abs(index - (l - 1) / 2) * 10;
 
             // stroking coords
+            ctx.beginPath();
             ctx.moveTo(sx, sy);
             ctx.bezierCurveTo(cpx1, cpy1, cpx2, cpy2, fx, fy);
 
@@ -294,6 +311,6 @@ angular.module('zophie', ['ngRoute'])
     $scope.$on('update_cards', function(event, value){
         $scope.data[event.targetScope.id] = value;
 
-        draw();
+        $scope.$evalAsync(draw);
     });
 });
