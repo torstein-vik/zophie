@@ -260,6 +260,41 @@ angular.module('zophie', ['ngRoute'])
         ctx.stroke();
     }
 
+
+    function drawline(index, array, cardsid, w, h, mw, mh, flipy){
+        // retrive the dom element, +2 to ignore addcard-balancer
+        var inputDOM = $("#" + cardsid + " > div:nth-child(" + (index + 2) + ")")[0];
+
+        // amount of inputs
+        var l = array.length;
+
+        // start and finish coords
+        var sx, sy, fx, fy;
+
+        // control points coords
+        var cpx1, cpy1, cpx2, cpy2;
+
+        sx = inputDOM.offsetLeft + (inputDOM.clientWidth / 2) - canvas.offsetLeft;
+        sy = 0;
+
+        fx = w / 2 + ((index - (l - 1) / 2) / l * mw / 2);
+        fy = h / 2 - mh / 2 - 10;
+
+        cpx1 = sx;
+        cpy1 = fy + Math.abs(index - (l - 1) / 2) * 10;
+
+        cpx2 = fx;
+        cpy2 = sy + Math.abs(index - (l - 1) / 2) * 10;
+
+        // stroking coords
+        ctx.beginPath();
+        ctx.moveTo(sx, flipy ? h - sy : sy);
+        ctx.bezierCurveTo(cpx1, flipy ? h - cpy1 : cpy1, cpx2, flipy ? h - cpy2 : cpy2, fx, flipy ? h - fy : fy);
+
+        ctx.strokeStyle = "black";
+        ctx.stroke();
+    }
+
     function draw(){
 
         var w = canvas.width;
@@ -274,37 +309,11 @@ angular.module('zophie', ['ngRoute'])
 
 
         $scope.data.inputs.forEach(function(input, index, array){
-            // retrive the dom element, +2 to ignore addcard-balancer
-            var inputDOM = $("#inputs > div:nth-child(" + (index + 2) + ")")[0];
+            drawline(index, array, "inputs",  w, h, mw, mh, false);
+        });
 
-            // amount of inputs
-            var l = array.length;
-
-            // start and finish coords
-            var sx, sy, fx, fy;
-
-            // control points coords
-            var cpx1, cpy1, cpx2, cpy2;
-
-            sx = inputDOM.offsetLeft + (inputDOM.clientWidth / 2) - canvas.offsetLeft;
-            sy = 0;
-
-            fx = w / 2 + ((index - (l - 1) / 2) / l * mw / 2);
-            fy = h / 2 - mh / 2 - 10;
-
-            cpx1 = sx;
-            cpy1 = fy + Math.abs(index - (l - 1) / 2) * 10;
-
-            cpx2 = fx;
-            cpy2 = sy + Math.abs(index - (l - 1) / 2) * 10;
-
-            // stroking coords
-            ctx.beginPath();
-            ctx.moveTo(sx, sy);
-            ctx.bezierCurveTo(cpx1, cpy1, cpx2, cpy2, fx, fy);
-
-            ctx.strokeStyle = "black";
-            ctx.stroke();
+        $scope.data.outputs.forEach(function(input, index, array){
+            drawline(index, array, "outputs", w, h, mw, mh, true);
         });
     }
 
