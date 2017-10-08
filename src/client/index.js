@@ -321,6 +321,7 @@ angular.module('zophie', ['ngRoute'])
     }
 
     $scope.$on('update_cards', function(event, value){
+        event.stopPropagation();
         $scope.data[event.targetScope.id] = value;
 
         $scope.$evalAsync(draw);
