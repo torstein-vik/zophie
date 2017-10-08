@@ -232,10 +232,6 @@ angular.module('zophie', ['ngRoute'])
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
-
-    // width and height of machine
-    var mw = 100, mh = 100;
-
     window.addEventListener('resize', function(){
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
@@ -243,7 +239,13 @@ angular.module('zophie', ['ngRoute'])
         draw();
     });
 
-    function drawmachine(w, h){
+    // width and height of machine
+    var mw = 100, mh = 100;
+
+
+
+
+    function domachinepath(w, h){
 
         // anchor coordinates, center of machine
         var ax = w/2, ay = h/2;
@@ -258,13 +260,20 @@ angular.module('zophie', ['ngRoute'])
         ctx.lineTo(ax - mw / 2, ay + mh / 2);
         ctx.lineTo(ax - mw / 2, ay - mh / 2);
 
+        ctx.closePath();
+    }
+
+    function drawmachine(w, h){
+
+        domachinepath(w, h);
+
         ctx.strokeStyle = "black";
         ctx.stroke();
 
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.font = (mw / 2) + 'px serif';
-        ctx.fillText("⚙", ax, ay);
+        ctx.fillText("⚙", w / 2, h / 2);
     }
 
     function drawline(index, array, cardsid, w, h, flipy){
