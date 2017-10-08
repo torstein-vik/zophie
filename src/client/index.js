@@ -254,10 +254,13 @@ angular.module('zophie', ['ngRoute'])
         ctx.lineTo(ax - mw / 2, ay + mh / 2);
         ctx.lineTo(ax - mw / 2, ay - mh / 2);
 
-        ctx.fillStyle = "red";
         ctx.strokeStyle = "black";
-        ctx.fill();
         ctx.stroke();
+
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.font = (mw / 2) + 'px serif';
+        ctx.fillText("⚙", ax, ay);
     }
 
 
