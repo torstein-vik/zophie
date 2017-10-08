@@ -232,6 +232,10 @@ angular.module('zophie', ['ngRoute'])
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
 
+
+    // width and height of machine
+    var mw = 100, mh = 100;
+
     window.addEventListener('resize', function(){
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
@@ -239,7 +243,7 @@ angular.module('zophie', ['ngRoute'])
         draw();
     });
 
-    function drawmachine(w, h, mw, mh){
+    function drawmachine(w, h){
 
         // anchor coordinates, center of machine
         var ax = w/2, ay = h/2;
@@ -263,8 +267,7 @@ angular.module('zophie', ['ngRoute'])
         ctx.fillText("⚙", ax, ay);
     }
 
-
-    function drawline(index, array, cardsid, w, h, mw, mh, flipy){
+    function drawline(index, array, cardsid, w, h, flipy){
         // retrive the dom element, +2 to ignore addcard-balancer
         var inputDOM = $("#" + cardsid + " > div:nth-child(" + (index + 2) + ")")[0];
 
@@ -305,18 +308,15 @@ angular.module('zophie', ['ngRoute'])
 
         ctx.clearRect(0, 0, w, h);
 
-        // width and height of machine
-        var mw = 100, mh = 100;
-
-        drawmachine(w, h, mw, mh);
+        drawmachine(w, h);
 
 
         $scope.data.inputs.forEach(function(input, index, array){
-            drawline(index, array, "inputs",  w, h, mw, mh, false);
+            drawline(index, array, "inputs",  w, h, false);
         });
 
         $scope.data.outputs.forEach(function(input, index, array){
-            drawline(index, array, "outputs", w, h, mw, mh, true);
+            drawline(index, array, "outputs", w, h, true);
         });
     }
 
