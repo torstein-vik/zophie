@@ -243,7 +243,18 @@ angular.module('zophie', ['ngRoute'])
     var mw = 100, mh = 100;
 
 
+    canvas.addEventListener('mousemove', function(event){
+        var x = event.offsetX;
+        var y = event.offsetY;
 
+        domachinepath(canvas.width, canvas.height);
+
+        if (ctx.isPointInPath(x, y)){
+             document.body.style.cursor = "pointer";
+        } else {
+             document.body.style.cursor = "initial";
+        }
+    });
 
     function domachinepath(w, h){
 
