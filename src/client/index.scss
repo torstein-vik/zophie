@@ -361,3 +361,190 @@ content-container {
 
     }
 }
+
+// Modal system cover
+#modal-cover {
+    z-index: 999;
+
+    position: fixed;
+
+    top:    0;
+    bottom: 0;
+    left:   0;
+    right:  0;
+
+    background-color: rgba(0,0,0,0.20);
+}
+
+// Modal system
+.modal {
+
+    z-index: 1000;
+
+    position: fixed;
+
+    top:    20vh;
+    bottom: 20vh;
+    left:   20vw;
+    right:  20vw;
+
+    padding: 10px;
+
+    background-color: $theme-faded;
+    box-shadow: 0 0 5px black;
+
+    .modal-title {
+        display: flex;
+
+        justify-content: space-between;
+
+        h2 {
+
+        }
+
+        a {
+            font-size: 200%;
+            cursor: pointer;
+        }
+    }
+
+    .modal-container {
+
+    }
+}
+
+// lists of cards, used for defining machine
+.cards {
+
+    // Layout of cards
+    display: flex;
+
+    align-items: center;
+
+    // Specific card
+    & > div {
+
+        // Width and height of cards. Subject to change.
+        width: 120px;
+        height: 150px;
+
+        background-color: $theme-faded;
+
+        margin: 10px;
+
+        // Layout of title-content
+        display: flex;
+        flex-direction: column;
+
+        // Card title
+        & > div.card-title {
+
+            height: 20px;
+
+            margin: 0 10px;
+
+            // Layout of title and remove-button
+            display: flex;
+            justify-content: space-between;
+
+            // title
+            h4 {
+               margin: 0;
+            }
+
+            // remove-button
+            a {
+                cursor: pointer;
+            }
+        }
+
+        // Card content
+        & > div.card-content {
+            padding: 10px;
+
+            flex: 1 0 auto;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        &.addcard {
+            cursor: pointer;
+
+            background-color: lighten(desaturate($theme-faded, 100%), 20%);
+
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 400%;
+
+            height: 120px;
+        }
+
+        &.addcard-balancer {
+            visibility: hidden;
+        }
+    }
+}
+
+// Add machine css
+#addmachine {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+
+    h2 {
+       text-align: center;
+    }
+
+    // Cards in the sense of machine spec
+    .cards {
+
+
+        justify-content: center;
+
+        // Individual card content divs
+        .machinecard {
+
+                cursor: pointer;
+
+                flex: 1 0 auto;
+
+            // For the case of inputcards
+            &.inputcard {
+
+            }
+
+            // For the case of outputcards
+            &.outputcard {
+
+            }
+        }
+    }
+
+    .modal {
+        // Reset because modal is inside something with ng-click
+        cursor: initial;
+
+        input {
+            padding: 10px;
+            font-family: inherit;
+            font-size: 110%;
+
+        }
+
+        .modal-content{
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+    }
+
+    canvas {
+        height: 200px;
+    }
+}
