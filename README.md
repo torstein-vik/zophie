@@ -14,6 +14,8 @@ https://zophie-508e8.firebaseapp.com/
 7. Login to Firebase (with 'firebase login')
 8. Update .firebaserc to accommodate whatever your Firebase project is
 9. In the firebase directory, use 'firebase serve' to run locally and 'firebase deploy' to deploy online.
+10. Run 'sbt' in the zophie directory to start SBT
+11. Inside SBT, run 'run' to run the scala-program
 
 Please tell us if this doesn't work, because that means something is wrong with our instructions.
 
