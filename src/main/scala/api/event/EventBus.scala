@@ -1,15 +1,19 @@
 package io.zophie.api.event
 
 sealed trait EventBus {
-    def addEventListener(event : Event) : ((event.eventData => Unit) => Unit)
+    def addEventListener(event : Event) : (EventHandler[event.eventData] => Unit)
     def hasEventListener(event : Event) : Boolean
     def triggerEvent(event : Event) : (event.eventData => Unit)
 }
 
+trait EventHandler[T <: EventData] {
+    def handle (data : T) : Unit
+}
+
 class DefaultEventBus extends EventBus {
 
-    override def addEventListener(event : Event) : ((event.eventData => Unit) => Unit) = {
-        return (f : (event.eventData => Unit)) => {
+    override def addEventListener(event : Event) : (EventHandler[event.eventData] => Unit) = {
+        return (handler : EventHandler[event.eventData]) => {
 
         }
     }
