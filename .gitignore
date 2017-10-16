@@ -20,3 +20,6 @@
 
 # Custom build tool hashes
 /hashes.json
+
+# SBT files
+target
