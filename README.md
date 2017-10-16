@@ -15,7 +15,7 @@ https://zophie-508e8.firebaseapp.com/
 8. Update .firebaserc to accommodate whatever your Firebase project is
 9. In the firebase directory, use 'firebase serve' to run locally and 'firebase deploy' to deploy online.
 10. Run 'sbt' in the zophie directory to start SBT
-11. Inside SBT, run 'run' to run the scala-program
+11. Inside SBT, run 'test' to test the zophie codebase 
 
 Please tell us if this doesn't work, because that means something is wrong with our instructions.
 
@@ -83,3 +83,4 @@ This is very subject to change, and only specifices the current plans.
 * /src/client/json -- Json data or js-files that define a json object (since async can be very inconvenient)
 * /src/server/ -- Code for the server. Note, this only serves as an API for the backend-logic.
 * /src/main/scala -- API for the backend logic. Called upon by 'native' js-code in /src/server. Foundatioanlly independent from the webpage
+* /src/test/scala -- Test for the backend API
