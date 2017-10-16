@@ -10,11 +10,10 @@ https://zophie-508e8.firebaseapp.com/
 3. Run 'npm install' in the zophie directory to install packages for the build script
 4. Run 'npm install' in 'firebase/functions/'
 5. Make sure you have SASS installed, and in path
-6. If not aleady there, add a folder named 'json' in src (git doesn't track empty folders)
-7. Run 'node build.js' to build the program
-8. Login to Firebase (with 'firebase login')
-9. Update .firebaserc to accommodate whatever your Firebase project is
-10. In the firebase directory, use 'firebase serve' to run locally and 'firebase deploy' to deploy online.
+6. Run 'node build.js' to build the program
+7. Login to Firebase (with 'firebase login')
+8. Update .firebaserc to accommodate whatever your Firebase project is
+9. In the firebase directory, use 'firebase serve' to run locally and 'firebase deploy' to deploy online.
 
 Please tell us if this doesn't work, because that means something is wrong with our instructions.
 
