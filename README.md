@@ -70,6 +70,8 @@ This is very subject to change, and only specifices the current plans.
 * /planning/content -- Content on the webpage, such as Home and About
 * /planning/examples -- Various examples of questions/answers etc...
 
+* /project/ -- Part of SBT
+
 * /firebase/ -- The root directory for the firebase project. NOTE: FILES ARE NOT EDITED HERE, BUT BUILT FROM /src/
 * /firebase/public -- Public directory with all the hosted files
 * /firebase/functions -- Directory with the server-side logic
@@ -79,4 +81,4 @@ This is very subject to change, and only specifices the current plans.
 * /src/client/templates -- HTML templates
 * /src/client/json -- Json data or js-files that define a json object (since async can be very inconvenient)
 * /src/server/ -- Code for the server. Note, this only serves as an API for the backend-logic.
-* /src/backend/ -- API for the backend logic. Called upon by 'native' js-code in /src/server. Foundatioanlly independent from the webpage
+* /src/main/scala -- API for the backend logic. Called upon by 'native' js-code in /src/server. Foundatioanlly independent from the webpage
