@@ -7,3 +7,5 @@ trait Event {
 trait EventData {
 
 }
+
+class NoEventData () extends EventData
