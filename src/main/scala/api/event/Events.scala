@@ -5,5 +5,5 @@ trait Event {
 }
 
 trait EventData {
-    def eventid
+
 }
