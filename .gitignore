@@ -1,4 +1,5 @@
-/firebase/functions/node_modules/*
+
+# 'Complied javascript binaries'
 /firebase/functions/index.js
 /firebase/public/json/*
 /firebase/public/templates/*
@@ -6,7 +7,19 @@
 /firebase/public/index.css
 /firebase/public/index.js
 /firebase/public/util.js
+
+# Log-file
 /firebase/firebase-debug.log
+
+# Sass
 /.sass-cache/*
+
+# Downloaded node modules
+/firebase/functions/node_modules/*
 /node_modules/*
+
+# Custom build tool hashes
 /hashes.json
+
+# SBT files
+target

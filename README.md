@@ -10,11 +10,12 @@ https://zophie-508e8.firebaseapp.com/
 3. Run 'npm install' in the zophie directory to install packages for the build script
 4. Run 'npm install' in 'firebase/functions/'
 5. Make sure you have SASS installed, and in path
-6. If not aleady there, add a folder named 'json' in src (git doesn't track empty folders)
-7. Run 'node build.js' to build the program
-8. Login to Firebase (with 'firebase login')
-9. Update .firebaserc to accommodate whatever your Firebase project is
-10. In the firebase directory, use 'firebase serve' to run locally and 'firebase deploy' to deploy online.
+6. Run 'node build.js' to build the program
+7. Login to Firebase (with 'firebase login')
+8. Update .firebaserc to accommodate whatever your Firebase project is
+9. In the firebase directory, use 'firebase serve' to run locally and 'firebase deploy' to deploy online.
+10. Run 'sbt' in the zophie directory to start SBT
+11. Inside SBT, run 'run' to run the scala-program
 
 Please tell us if this doesn't work, because that means something is wrong with our instructions.
 
@@ -70,6 +71,8 @@ This is very subject to change, and only specifices the current plans.
 * /planning/content -- Content on the webpage, such as Home and About
 * /planning/examples -- Various examples of questions/answers etc...
 
+* /project/ -- Part of SBT
+
 * /firebase/ -- The root directory for the firebase project. NOTE: FILES ARE NOT EDITED HERE, BUT BUILT FROM /src/
 * /firebase/public -- Public directory with all the hosted files
 * /firebase/functions -- Directory with the server-side logic
@@ -79,4 +82,4 @@ This is very subject to change, and only specifices the current plans.
 * /src/client/templates -- HTML templates
 * /src/client/json -- Json data or js-files that define a json object (since async can be very inconvenient)
 * /src/server/ -- Code for the server. Note, this only serves as an API for the backend-logic.
-* /src/backend/ -- API for the backend logic. Called upon by 'native' js-code in /src/server. Foundatioanlly independent from the webpage
+* /src/main/scala -- API for the backend logic. Called upon by 'native' js-code in /src/server. Foundatioanlly independent from the webpage
