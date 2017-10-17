@@ -195,4 +195,41 @@ class EventBusTest extends FunSuite with ScalaFutures {
             _ => assert(x === 8 && y === 4)
         }
     }
+
+    test ("eventbus multiple event order sync") {
+        // The eventbus which is to be tested
+        val eventbus : EventBus = new DefaultEventBus()
+
+        // Variables to be tested
+        var x = 0
+
+        // Eventlisteners
+        eventbus.addEventListener(Event2)(_ => x = 1)
+        eventbus.addEventListener(Event2)(_ => x = 2)
+        eventbus.addEventListener(Event2)(_ => x = 3)
+
+        // Testing events
+        // Note that the last event listener should be run last
+        eventbus.triggerEventSync(Event2)(NoEventData)
+        assert(x === 3)
+    }
+
+    test ("eventbus multiple event order async") {
+        // The eventbus which is to be tested
+        val eventbus : EventBus = new DefaultEventBus()
+
+        // Variables to be tested
+        var x = 0
+
+        // Eventlisteners
+        eventbus.addEventListener(Event2)(_ => x = 1)
+        eventbus.addEventListener(Event2)(_ => x = 2)
+        eventbus.addEventListener(Event2)(_ => x = 3)
+
+        // Testing events
+        // Note that there is no order that these should be executed in, as they are execured in parallell
+        whenReady(eventbus.triggerEvent(Event2)(NoEventData)) {
+            _ => assert(x === 1 || x === 2 || x === 3)
+        }
+    }
 }
