@@ -15,7 +15,7 @@ trait EventHandler[T <: EventData] {
 
 class DefaultEventBus extends EventBus {
 
-    var listeners : Map[Event, Seq[EventHandler[_]]] = Map()
+    private var listeners : Map[Event, Seq[EventHandler[_]]] = Map()
 
     override def addEventListener(event : Event) : (EventHandler[event.eventData] => Unit) = {
         return (handler : EventHandler[event.eventData]) => {
