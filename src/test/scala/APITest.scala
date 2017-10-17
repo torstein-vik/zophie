@@ -119,4 +119,37 @@ class APITest extends FunSuite with ScalaFutures {
 
 
     }
+
+    test ("eventbus multiple events sync") {
+
+        // The eventbus which is to be tested
+        val eventbus : EventBus = new DefaultEventBus()
+
+        // Variables to be tested
+        var x = 0
+        var y = 0
+
+        // Eventlisteners
+        eventbus.addEventListener(Event2)(_ => x += 1)
+        eventbus.addEventListener(Event2)(_ => y += 2)
+        eventbus.addEventListener(Event3)(data => x = data.num * 2 )
+        eventbus.addEventListener(Event3)(data => y = data.num )
+
+
+        // Testing events
+        eventbus.triggerEventSync(Event2)(new NoEventData())
+        assert(x === 1 && y === 2)
+
+        eventbus.triggerEventSync(Event2)(new NoEventData())
+        assert(x === 2 && y === 4)
+
+        eventbus.triggerEventSync(Event3)(new EventData2(num = 3))
+        assert(x === 6 && y === 3)
+
+        eventbus.triggerEventSync(Event2)(new NoEventData())
+        assert(x === 7 && y === 5)
+
+        eventbus.triggerEventSync(Event3)(new EventData2(num = 4))
+        assert(x === 8 && y === 4)
+    }
 }
