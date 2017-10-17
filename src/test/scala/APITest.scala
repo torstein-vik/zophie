@@ -12,8 +12,8 @@ class APITest extends FunSuite with ScalaFutures {
     class EventData1 (val str : String) extends EventData
     class EventData2 (val num : Int)    extends EventData
 
-    case object Event1 extends Event {type eventData = EventData1 }
-    case object Event2 extends Event {type eventData = NoEventData}
+    case object Event1 extends Event {type eventData = EventData1}
+    case object Event2 extends Event {type eventData = NoEventData.type}
     case object Event3 extends Event {type eventData = EventData2}
 
 
@@ -63,7 +63,7 @@ class APITest extends FunSuite with ScalaFutures {
         assert(x === "test1")
 
         // Nothing happends when Event2 is triggered
-        eventbus.triggerEventSync(Event2)(new NoEventData())
+        eventbus.triggerEventSync(Event2)(NoEventData)
         assert(x === "test1")
 
         // x changes to 'test2' when Event1 triggered with this data
@@ -75,7 +75,7 @@ class APITest extends FunSuite with ScalaFutures {
         assert(x === "test3")
 
         // Nothing happends when Event2 is triggered
-        eventbus.triggerEventSync(Event2)(new NoEventData())
+        eventbus.triggerEventSync(Event2)(NoEventData)
         assert(x === "test3")
     }
 
@@ -91,7 +91,7 @@ class APITest extends FunSuite with ScalaFutures {
         eventbus.addEventListener(Event1)(event => x = event.str)
 
         // Nothing happends when Event2 is triggered
-        val eventTrigger1 = eventbus.triggerEvent(Event2)(new NoEventData())
+        val eventTrigger1 = eventbus.triggerEvent(Event2)(NoEventData)
         whenReady(eventTrigger1) {
             case _ => assert(x === "test1")
         }
@@ -112,7 +112,7 @@ class APITest extends FunSuite with ScalaFutures {
 
 
         // Nothing happends when Event2 is triggered
-        val eventTrigger4 = eventbus.triggerEvent(Event2)(new NoEventData())
+        val eventTrigger4 = eventbus.triggerEvent(Event2)(NoEventData)
         whenReady(eventTrigger4) {
             case _ => assert(x === "test3")
         }
@@ -142,16 +142,16 @@ class APITest extends FunSuite with ScalaFutures {
         assert( eventbus.hasEventListener(Event3))
 
         // Testing events
-        eventbus.triggerEventSync(Event2)(new NoEventData())
+        eventbus.triggerEventSync(Event2)(NoEventData)
         assert(x === 1 && y === 2)
 
-        eventbus.triggerEventSync(Event2)(new NoEventData())
+        eventbus.triggerEventSync(Event2)(NoEventData)
         assert(x === 2 && y === 4)
 
         eventbus.triggerEventSync(Event3)(new EventData2(num = 3))
         assert(x === 6 && y === 3)
 
-        eventbus.triggerEventSync(Event2)(new NoEventData())
+        eventbus.triggerEventSync(Event2)(NoEventData)
         assert(x === 7 && y === 5)
 
         eventbus.triggerEventSync(Event3)(new EventData2(num = 4))
@@ -175,11 +175,11 @@ class APITest extends FunSuite with ScalaFutures {
 
 
         // Testing events
-        whenReady(eventbus.triggerEvent(Event2)(new NoEventData())) {
+        whenReady(eventbus.triggerEvent(Event2)(NoEventData)) {
             _ => assert(x === 1 && y === 2)
         }
 
-        whenReady(eventbus.triggerEvent(Event2)(new NoEventData())) {
+        whenReady(eventbus.triggerEvent(Event2)(NoEventData)) {
             _ => assert(x === 2 && y === 4)
         }
 
@@ -187,7 +187,7 @@ class APITest extends FunSuite with ScalaFutures {
             _ => assert(x === 6 && y === 3)
         }
 
-        whenReady(eventbus.triggerEvent(Event2)(new NoEventData())) {
+        whenReady(eventbus.triggerEvent(Event2)(NoEventData)) {
             _ => assert(x === 7 && y === 5)
         }
 

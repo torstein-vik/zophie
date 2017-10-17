@@ -10,4 +10,4 @@ trait EventHandler[T <: EventData] {
 
 trait EventData
 
-class NoEventData () extends EventData
+case object NoEventData extends EventData
