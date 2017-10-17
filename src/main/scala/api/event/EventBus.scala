@@ -6,6 +6,7 @@ sealed trait EventBus {
     def addEventListener(event : Event) : (EventHandler[event.eventData] => Unit)
     def hasEventListener(event : Event) : Boolean
     def triggerEvent(event : Event) : (event.eventData => Unit)
+    def triggerEventSync(event : Event) : (event.eventData => Unit)
 }
 
 trait EventHandler[T <: EventData] {
@@ -27,6 +28,12 @@ class DefaultEventBus extends EventBus {
     }
 
     override def triggerEvent(event : Event) : (event.eventData => Unit) = {
+        return (data : event.eventData) => {
+
+        }
+    }
+
+    override def triggerEventSync(event : Event) : (event.eventData => Unit) = {
         return (data : event.eventData) => {
 
         }
