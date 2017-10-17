@@ -12,10 +12,6 @@ trait EventBus {
     def triggerEventSync(event : Event) : (event.eventData => Unit)
 }
 
-trait EventHandler[T <: EventData] {
-    def handle (data : T) : Unit
-}
-
 class DefaultEventBus extends EventBus {
 
     private var listeners : Map[Event, Seq[EventHandler[_]]] = Map()
