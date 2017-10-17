@@ -1,5 +1,7 @@
 package io.zophie.api.event
 
+import scala.collection.mutable.Map
+
 sealed trait EventBus {
     def addEventListener(event : Event) : (EventHandler[event.eventData] => Unit)
     def hasEventListener(event : Event) : Boolean
@@ -12,14 +14,16 @@ trait EventHandler[T <: EventData] {
 
 class DefaultEventBus extends EventBus {
 
+    var listeners : Map[Event, Seq[EventHandler[_]]] = Map()
+
     override def addEventListener(event : Event) : (EventHandler[event.eventData] => Unit) = {
         return (handler : EventHandler[event.eventData]) => {
-
+            listeners += (event -> Seq(handler))
         }
     }
 
     override def hasEventListener(event : Event) : Boolean = {
-        return false
+        return listeners.getOrElse(event, Seq()).length > 0
     }
 
     override def triggerEvent(event : Event) : (event.eventData => Unit) = {
