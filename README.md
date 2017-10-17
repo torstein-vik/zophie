@@ -14,8 +14,9 @@ https://zophie-508e8.firebaseapp.com/
 7. Login to Firebase (with 'firebase login')
 8. Update .firebaserc to accommodate whatever your Firebase project is
 9. In the firebase directory, use 'firebase serve' to run locally and 'firebase deploy' to deploy online.
-10. Run 'sbt' in the zophie directory to start SBT
-11. Inside SBT, run 'test' to test the zophie codebase 
+10. Add 'resolvers += "Artima Maven Repository" at "http://repo.artima.com/releases"' to ~/.sbt/1.0/global.sbt
+11. Run 'sbt' in the zophie directory to start SBT
+12. Inside SBT, run 'test' to test the zophie codebase 
 
 Please tell us if this doesn't work, because that means something is wrong with our instructions.
 
