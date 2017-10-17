@@ -41,4 +41,35 @@ class APITest extends FunSuite {
         assert(eventbus.hasEventListener(Event1))
         assert(eventbus.hasEventListener(Event2))
     }
+
+    test ("eventbus synchronous trigger works") {
+
+        // The eventbus which is to be tested
+        val eventbus : EventBus = new DefaultEventBus()
+
+        // Variable to be changed by event
+        var x = "test1"
+
+        // A listener on Event1, which changes x to event.str
+        eventbus.addEventListener(Event1)((event : EventData1) => { x = event.str })
+
+        // Nothing has changed by adding listener
+        assert(x === "test1")
+
+        // Nothing happends when Event2 is triggered
+        eventbus.triggerEventSync(Event2)(new NoEventData())
+        assert(x === "test1")
+
+        // x changes to 'test2' when Event1 triggered with this data
+        eventbus.triggerEventSync(Event1)(new EventData1("test2"))
+        assert(x === "test2")
+
+        // x changes to 'test3' when Event1 triggered with this data
+        eventbus.triggerEventSync(Event1)(new EventData1("test3"))
+        assert(x === "test3")
+
+        // Nothing happends when Event2 is triggered
+        eventbus.triggerEventSync(Event2)(new NoEventData())
+        assert(x === "test3")
+    }
 }
