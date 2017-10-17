@@ -8,8 +8,6 @@ trait EventHandler[T <: EventData] {
     def handle (data : T) : Unit
 }
 
-trait EventData {
-
-}
+trait EventData
 
 class NoEventData () extends EventData
