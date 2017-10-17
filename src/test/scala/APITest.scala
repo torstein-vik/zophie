@@ -10,9 +10,11 @@ class APITest extends FunSuite with ScalaFutures {
 
     // Defining two dummy events and event data classes
     class EventData1 (val str : String) extends EventData
+    class EventData2 (val num : Int)    extends EventData
 
     case object Event1 extends Event {type eventData = EventData1 }
     case object Event2 extends Event {type eventData = NoEventData}
+    case object Event3 extends Event {type eventData = EventData2}
 
 
     test ("eventbus does not have event listeners") {
