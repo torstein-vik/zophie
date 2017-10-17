@@ -17,35 +17,35 @@ class EventBusTest extends FunSuite with ScalaFutures {
     case object Event3 extends Event {type eventData = EventData2}
 
 
-    test ("eventbus does not have event listeners") {
+    test ("empty eventbus does not have event handlers") {
 
         // The eventbus which is to be tested
         val eventbus : EventBus = new DefaultEventBus()
 
-        // Make sure it does not have any event listeners
-        assert(!eventbus.hasEventListener(Event1))
-        assert(!eventbus.hasEventListener(Event2))
+        // Make sure it does not have any event handlers
+        assert(!eventbus.hasEventHandler(Event1))
+        assert(!eventbus.hasEventHandler(Event2))
 
     }
 
-    test ("eventbus.hasEventListener and addEventListener works") {
+    test ("eventbus hasEventHandler and addEventHandler works") {
 
         // The eventbus which is to be tested
         val eventbus : EventBus = new DefaultEventBus()
 
-        // Add event listener for Event1
-        eventbus.addEventListener(Event1)( _ => {});
+        // Add event handlers for Event1
+        eventbus.addEventHandler(Event1)( _ => {});
 
         // Make sure it has Event1, but not Event2
-        assert( eventbus.hasEventListener(Event1))
-        assert(!eventbus.hasEventListener(Event2))
+        assert( eventbus.hasEventHandler(Event1))
+        assert(!eventbus.hasEventHandler(Event2))
 
-        // Add event listener for Event2
-        eventbus.addEventListener(Event2)( _ => {});
+        // Add event handlers for Event2
+        eventbus.addEventHandler(Event2)( _ => {});
 
-        // Make sure it has all eventListeners
-        assert(eventbus.hasEventListener(Event1))
-        assert(eventbus.hasEventListener(Event2))
+        // Make sure it has all eventHandlers
+        assert(eventbus.hasEventHandler(Event1))
+        assert(eventbus.hasEventHandler(Event2))
     }
 
     test ("eventbus synchronous trigger works") {
@@ -56,10 +56,10 @@ class EventBusTest extends FunSuite with ScalaFutures {
         // Variable to be changed by event
         var x = "test1"
 
-        // A listener on Event1, which changes x to event.str
-        eventbus.addEventListener(Event1)(event => x = event.str)
+        // A handler on Event1, which changes x to event.str
+        eventbus.addEventHandler(Event1)(event => x = event.str)
 
-        // Nothing has changed by adding listener
+        // Nothing has changed by adding handler
         assert(x === "test1")
 
         // Nothing happends when Event2 is triggered
@@ -87,8 +87,8 @@ class EventBusTest extends FunSuite with ScalaFutures {
         // Variable to be changed by event
         var x = "test1"
 
-        // A listener on Event1, which changes x to event.str
-        eventbus.addEventListener(Event1)(event => x = event.str)
+        // A handler on Event1, which changes x to event.str
+        eventbus.addEventHandler(Event1)(event => x = event.str)
 
         // Nothing happends when Event2 is triggered
         val eventTrigger1 = eventbus.triggerEvent(Event2)(NoEventData)
@@ -129,17 +129,17 @@ class EventBusTest extends FunSuite with ScalaFutures {
         var x = 0
         var y = 0
 
-        // Eventlisteners
-        eventbus.addEventListener(Event2)(_ => x += 1)
-        eventbus.addEventListener(Event2)(_ => y += 2)
-        eventbus.addEventListener(Event3)(data => x = data.num * 2 )
-        eventbus.addEventListener(Event3)(data => y = data.num )
+        // Eventhandlers
+        eventbus.addEventHandler(Event2)(_ => x += 1)
+        eventbus.addEventHandler(Event2)(_ => y += 2)
+        eventbus.addEventHandler(Event3)(data => x = data.num * 2 )
+        eventbus.addEventHandler(Event3)(data => y = data.num )
 
 
-        // Testing hasEventListener
-        assert(!eventbus.hasEventListener(Event1))
-        assert( eventbus.hasEventListener(Event2))
-        assert( eventbus.hasEventListener(Event3))
+        // Testing hasEventHandler
+        assert(!eventbus.hasEventHandler(Event1))
+        assert( eventbus.hasEventHandler(Event2))
+        assert( eventbus.hasEventHandler(Event3))
 
         // Testing events
         eventbus.triggerEventSync(Event2)(NoEventData)
@@ -167,11 +167,11 @@ class EventBusTest extends FunSuite with ScalaFutures {
         var x = 0
         var y = 0
 
-        // Eventlisteners
-        eventbus.addEventListener(Event2)(_ => x += 1)
-        eventbus.addEventListener(Event2)(_ => y += 2)
-        eventbus.addEventListener(Event3)(data => x = data.num * 2 )
-        eventbus.addEventListener(Event3)(data => y = data.num )
+        // Eventhandlers
+        eventbus.addEventHandler(Event2)(_ => x += 1)
+        eventbus.addEventHandler(Event2)(_ => y += 2)
+        eventbus.addEventHandler(Event3)(data => x = data.num * 2 )
+        eventbus.addEventHandler(Event3)(data => y = data.num )
 
 
         // Testing events
@@ -203,13 +203,13 @@ class EventBusTest extends FunSuite with ScalaFutures {
         // Variables to be tested
         var x = 0
 
-        // Eventlisteners
-        eventbus.addEventListener(Event2)(_ => x = 1)
-        eventbus.addEventListener(Event2)(_ => x = 2)
-        eventbus.addEventListener(Event2)(_ => x = 3)
+        // Eventhandlers
+        eventbus.addEventHandler(Event2)(_ => x = 1)
+        eventbus.addEventHandler(Event2)(_ => x = 2)
+        eventbus.addEventHandler(Event2)(_ => x = 3)
 
         // Testing events
-        // Note that the last event listener should be run last
+        // Note that the last event handler should be run last
         eventbus.triggerEventSync(Event2)(NoEventData)
         assert(x === 3)
     }
@@ -221,10 +221,10 @@ class EventBusTest extends FunSuite with ScalaFutures {
         // Variables to be tested
         var x = 0
 
-        // Eventlisteners
-        eventbus.addEventListener(Event2)(_ => x = 1)
-        eventbus.addEventListener(Event2)(_ => x = 2)
-        eventbus.addEventListener(Event2)(_ => x = 3)
+        // Eventhandlers
+        eventbus.addEventHandler(Event2)(_ => x = 1)
+        eventbus.addEventHandler(Event2)(_ => x = 2)
+        eventbus.addEventHandler(Event2)(_ => x = 3)
 
         // Testing events
         // Note that there is no order that these should be executed in, as they are execured in parallell
