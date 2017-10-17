@@ -31,9 +31,13 @@ class DefaultEventBus extends EventBus {
     }
 
     override def triggerEvent(event : Event) : (event.eventData => Future[Unit]) = {
-        return (data : event.eventData) => Future {
-
-        }
+        return (data : event.eventData) => Future.sequence(
+            listeners.getOrElse(event, Seq()).map(handler =>
+                Future [Unit] {
+                    handler.asInstanceOf[EventHandler[event.eventData]].handle(data)
+                }
+            )
+        ).map( _ => Unit )
     }
 
     override def triggerEventSync(event : Event) : (event.eventData => Unit) = {
