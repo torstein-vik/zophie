@@ -2,7 +2,7 @@ package io.zophie.api.event
 
 import scala.collection.mutable.Map
 
-sealed trait EventBus {
+trait EventBus {
     def addEventListener(event : Event) : (EventHandler[event.eventData] => Unit)
     def hasEventListener(event : Event) : Boolean
     def triggerEvent(event : Event) : (event.eventData => Unit)
