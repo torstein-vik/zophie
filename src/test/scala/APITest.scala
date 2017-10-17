@@ -136,6 +136,11 @@ class APITest extends FunSuite with ScalaFutures {
         eventbus.addEventListener(Event3)(data => y = data.num )
 
 
+        // Testing hasEventListener
+        assert(!eventbus.hasEventListener(Event1))
+        assert( eventbus.hasEventListener(Event2))
+        assert( eventbus.hasEventListener(Event3))
+
         // Testing events
         eventbus.triggerEventSync(Event2)(new NoEventData())
         assert(x === 1 && y === 2)
