@@ -35,7 +35,7 @@ class DefaultEventBus extends EventBus {
 
     override def triggerEventSync(event : Event) : (event.eventData => Unit) = {
         return (data : event.eventData) => {
-
+            listeners.getOrElse(event, Seq()).foreach(_.asInstanceOf[EventHandler[event.eventData]].handle(data))
         }
     }
 
