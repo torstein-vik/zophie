@@ -22,7 +22,7 @@ class DefaultEventBus extends EventBus {
 
     override def addEventListener(event : Event) : (EventHandler[event.eventData] => Unit) = {
         return (handler : EventHandler[event.eventData]) => {
-            listeners += (event -> Seq(handler))
+            listeners += event -> (listeners.getOrElse(event, Seq()) ++ Seq(handler))
         }
     }
 
