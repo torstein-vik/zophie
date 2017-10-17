@@ -57,7 +57,7 @@ class APITest extends FunSuite with ScalaFutures {
         var x = "test1"
 
         // A listener on Event1, which changes x to event.str
-        eventbus.addEventListener(Event1)((event : EventData1) => { x = event.str })
+        eventbus.addEventListener(Event1)(event => x = event.str)
 
         // Nothing has changed by adding listener
         assert(x === "test1")
@@ -88,7 +88,7 @@ class APITest extends FunSuite with ScalaFutures {
         var x = "test1"
 
         // A listener on Event1, which changes x to event.str
-        eventbus.addEventListener(Event1)((event : EventData1) => { x = event.str })
+        eventbus.addEventListener(Event1)(event => x = event.str)
 
         // Nothing happends when Event2 is triggered
         val eventTrigger1 = eventbus.triggerEvent(Event2)(new NoEventData())
