@@ -2,10 +2,13 @@ package io.zophie.api.event
 
 import scala.collection.mutable.Map
 
+import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
+
 trait EventBus {
     def addEventListener(event : Event) : (EventHandler[event.eventData] => Unit)
     def hasEventListener(event : Event) : Boolean
-    def triggerEvent(event : Event) : (event.eventData => Unit)
+    def triggerEvent(event : Event) : (event.eventData => Future[Unit])
     def triggerEventSync(event : Event) : (event.eventData => Unit)
 }
 
@@ -27,8 +30,8 @@ class DefaultEventBus extends EventBus {
         return listeners.getOrElse(event, Seq()).length > 0
     }
 
-    override def triggerEvent(event : Event) : (event.eventData => Unit) = {
-        return (data : event.eventData) => {
+    override def triggerEvent(event : Event) : (event.eventData => Future[Unit]) = {
+        return (data : event.eventData) => Future {
 
         }
     }
