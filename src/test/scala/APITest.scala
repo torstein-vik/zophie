@@ -28,14 +28,14 @@ class APITest extends FunSuite {
         val eventbus : EventBus = new DefaultEventBus()
 
         // Add event listener for Event1
-        eventbus.addEventListener(Event1)(new EventHandler [EventData1] { def handle ( data : EventData1 ) { } });
+        eventbus.addEventListener(Event1)( ( data : EventData1 ) => {});
 
         // Make sure it has Event1, but not Event2
         assert(eventbus.hasEventListener(Event1))
         assert(!eventbus.hasEventListener(Event2))
 
         // Add event listener for Event2
-        eventbus.addEventListener(Event2)(new EventHandler [NoEventData] { def handle ( data : NoEventData ) { } });
+        eventbus.addEventListener(Event2)( ( data : NoEventData ) => {} );
 
         // Make sure it has all eventListeners
         assert(eventbus.hasEventListener(Event1))
