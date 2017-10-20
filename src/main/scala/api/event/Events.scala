@@ -15,7 +15,7 @@ trait EventData
 
 case object NoEventData extends EventData
 
-package object ImplicitNoEventData {
+package object Implicits {
 
     // Specific case of no event data
     implicit val NoEventDataImplicit = NoEventData

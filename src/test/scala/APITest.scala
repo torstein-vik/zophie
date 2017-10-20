@@ -6,7 +6,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 import io.zophie.api._
 import io.zophie.api.event._
-import io.zophie.api.event.ImplicitNoEventData._
+import io.zophie.api.event.Implicits._
 
 
 // Defining two dummy events and event data classes
