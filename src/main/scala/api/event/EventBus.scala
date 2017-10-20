@@ -18,10 +18,10 @@ trait EventBus {
     def hasEventHandler(event : Event) : Boolean
 
     // Trigger an event asynchronously (ie. invoke EventHandlers on seperate threads), and return a future object resolved when all EventHandlers are finished
-    def triggerEvent(event : Event)(data : event.eventData) : Future[Unit]
+    def triggerEvent(event : Event)(implicit data : event.eventData) : Future[Unit]
 
     // Trigger an event synchronously (ie. invoke all EventHandlers ,in the order which they were added, on this thread)
-    def triggerEventSync(event : Event)(data : event.eventData) : Unit
+    def triggerEventSync(event : Event)(implicit data : event.eventData) : Unit
 
 }
 
@@ -42,7 +42,7 @@ class DefaultEventBus extends EventBus {
         return handlers.getOrElse(event, Seq()).length > 0
     }
 
-    override def triggerEvent(event : Event)(data : event.eventData) : Future[Unit] = {
+    override def triggerEvent(event : Event)(implicit data : event.eventData) : Future[Unit] = {
         // Future.sequence takes a list of Futures and turns it into a Future of lists
         return Future.sequence(
 
@@ -58,7 +58,7 @@ class DefaultEventBus extends EventBus {
         ).map( _ => Unit )
     }
 
-    override def triggerEventSync(event : Event)(data : event.eventData) = {
+    override def triggerEventSync(event : Event)(implicit data : event.eventData) = {
         // For each element in handlers[event], run _.handle(data)
         // Note that becuase of the wildcard in handlers, we have to use _.asInstanceOf
         handlers.getOrElse(event, Seq()).foreach(_.asInstanceOf[EventHandler[event.eventData]].handle(data))

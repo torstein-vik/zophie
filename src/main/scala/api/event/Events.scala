@@ -13,5 +13,9 @@ trait EventHandler[T <: EventData] {
 // Datacontainer which may be passed through an EventBus
 trait EventData
 
-// Specific case of no event data
-case object NoEventData extends EventData
+
+package object ImplicitNoEventData {
+
+    // Specific case of no event data
+    implicit case object NoEventData extends EventData
+}
