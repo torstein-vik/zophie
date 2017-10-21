@@ -349,26 +349,37 @@ class SocketConnectionTest extends FunSuite with ScalaFutures {
 
     test ("Socket receives data") {
 
+        // Message to be sent to socket
         val msg = "test1"
 
+        // Port to use
         val port    = 29990
+        // Server to test the connectionSocket
         val server  = new ServerSocket(port)
 
+        // Promise for when socket has connected and received its data
         val promise = Promise[String]()
+        // Setting up socket, and resolving promise with data when data is received
         val socket  = SocketConnection.setup(InetAddress.getByName("localhost"), port).setupConnection(promise.success)
 
+        // Accept the socket session
         val session = server.accept
+        // Output stream to send message to socket
         val out = new PrintStream( session.getOutputStream )
 
-
+        // Sending and flushing message to socket
         out.println(msg)
         out.flush()
+
+        // Closing session
         session.close()
 
+        // When socket receives data, assert that it is equal to the message sent
         whenReady(promise.future) { data =>
             assert(data === msg)
         }
 
+        // Close server
         server.close()
 
     }
@@ -377,21 +388,29 @@ class SocketConnectionTest extends FunSuite with ScalaFutures {
 
     test ("Socket sends data") {
 
+        // Message to be sent to server
         val msg = "test1"
 
+        // Port to use
         val port    = 29990
+        // Server for socket to connect to
         val server  = new ServerSocket(port)
 
+        // Setting up socket, no input handler
         val socket  = SocketConnection.setup(InetAddress.getByName("localhost"), port).setupConnection(_ => {})
 
+        // Sending data on socket to the server
         socket.push(msg)
 
+        // Accepting session serverside
         val session = server.accept
-        val in = new BufferedSource( session.getInputStream ).getLines
+        // Object to receive the data
+        lazy val in = new BufferedSource( session.getInputStream ).getLines
 
+        // Asserting that the message the server received is the message sent
         assert(in.next === msg)
 
-
+        // Closing it all
         session.close()
         server.close()
 
@@ -401,6 +420,8 @@ class SocketConnectionTest extends FunSuite with ScalaFutures {
 
 class ConfigTest extends FunSuite {
     test ("internet config") {
+
+        // Tesing that the port and IP on defaultNetworkDetails is as exptected
         assert (DefaultNetworkDetails.defaultNetworkDetails.port === 29990)
         assert (DefaultNetworkDetails.defaultNetworkDetails.ip   === InetAddress.getByName("localhost"))
     }
