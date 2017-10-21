@@ -354,7 +354,7 @@ class SocketConnectionTest extends FunSuite with ScalaFutures {
         val server  = new ServerSocket(port)
 
         val promise = Promise[String]()
-        val socket  = new SocketConnection(InetAddress.getByName("localhost"), port)(promise.success)
+        val socket  = SocketConnection.setup(InetAddress.getByName("localhost"), port).setupConnection(promise.success)
 
         val session = server.accept
         val out = new PrintStream( session.getOutputStream )
@@ -381,7 +381,7 @@ class SocketConnectionTest extends FunSuite with ScalaFutures {
         val port    = 29990
         val server  = new ServerSocket(port)
 
-        val socket  = new SocketConnection(InetAddress.getByName("localhost"), port)(_ => {})
+        val socket  = SocketConnection.setup(InetAddress.getByName("localhost"), port).setupConnection(_ => {})
 
         socket.push(msg)
 
