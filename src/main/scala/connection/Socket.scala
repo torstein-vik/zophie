@@ -7,6 +7,8 @@ import scala.io._
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
+import io.zophie.NetworkDetails
+
 class SocketConnection (socket : Socket)(callback : ConnectionCallback[String]) extends Connection[String](callback) {
 
     lazy val input = new BufferedSource( socket.getInputStream ).getLines
@@ -34,4 +36,6 @@ object SocketConnection {
     def setup (ip : InetAddress, port : Int) : ConnectionFactory[String, SocketConnection] = {
         return (callback => new SocketConnection(new Socket(ip, port))(callback)) : ConnectionFactory[String, SocketConnection]
     }
+
+    def setup (implicit config : NetworkDetails) : ConnectionFactory[String, SocketConnection] = setup(config.ip, config.port)
 }
