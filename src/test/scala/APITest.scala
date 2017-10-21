@@ -19,7 +19,7 @@ class EventData1 (val str : String) extends EventData
 class EventData2 (val num : Int)    extends EventData
 
 case object Event1 extends Event {type eventData = EventData1}
-case object Event2 extends Event {type eventData = NoEventData.type}
+case object Event2 extends EventNoData
 case object Event3 extends Event {type eventData = EventData2}
 
 class EventBusTest extends FunSuite with ScalaFutures {

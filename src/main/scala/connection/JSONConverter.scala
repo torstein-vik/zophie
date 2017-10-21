@@ -5,7 +5,7 @@ import io.zophie.api.event._
 package object JSONConverter {
     implicit object jsonc extends EventConverter[String] {
 
-        case object Placeholder extends Event  {type eventData = NoEventData.type}
+        case object Placeholder extends EventNoData
 
         def toData   (event : EventDataComposite) : String = {
             return "placeholder"

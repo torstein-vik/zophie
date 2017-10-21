@@ -5,6 +5,10 @@ trait Event {
     type eventData <: EventData
 }
 
+trait EventNoData extends Event {
+    type eventData = NoEventData.type
+}
+
 // An EventHandler takes the eventData and performs some task. Takes the type of the EventData as a type parameter
 trait EventHandler[T <: EventData] {
     def handle (data : T) : Unit
