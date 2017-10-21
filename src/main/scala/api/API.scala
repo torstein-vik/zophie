@@ -3,7 +3,7 @@ package io.zophie.api
 import event._
 
 
-// Class for Main to extend, some shorthands for nicer code
+// Class for Main to use, some shorthands for nicer code
 class API extends DefaultEventBus {
 
     // Shorthands for addEventHandler and triggerEvent
