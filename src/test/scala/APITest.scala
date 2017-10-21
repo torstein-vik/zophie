@@ -374,4 +374,26 @@ class SocketConnectionTest extends FunSuite with ScalaFutures {
 
 
 
+    test ("Socket sends data") {
+
+        val msg = "test1"
+
+        val port    = 29990
+        val server  = new ServerSocket(port)
+
+        val socket  = new SocketConnection(InetAddress.getByName("localhost"), port)(_ => {})
+
+        socket.push(msg)
+
+        val session = server.accept
+        val in = new BufferedSource( session.getInputStream ).getLines
+
+        assert(in.next === msg)
+
+
+        session.close()
+        server.close()
+
+    }
+
 }
