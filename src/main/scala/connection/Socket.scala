@@ -7,7 +7,7 @@ import scala.io._
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class SocketConnection (ip : InetAddress, port : Int)(implicit callback : ConnectionCallback[String]) extends Connection[String](callback) {
+class SocketConnection (ip : InetAddress, port : Int)(callback : ConnectionCallback[String]) extends Connection[String](callback) {
 
     val socket = new Socket(ip, port)
 
