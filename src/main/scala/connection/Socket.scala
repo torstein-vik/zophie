@@ -14,11 +14,11 @@ class SocketConnection (ip : InetAddress, port : Int)(callback : ConnectionCallb
     lazy val input = new BufferedSource( socket.getInputStream ).getLines
     val output = new PrintStream( socket.getOutputStream )
 
-    var running = true;
+    var running = true
 
     def close () = {
-        running = false;
-        socket.close();
+        running = false
+        socket.close()
     }
 
     Future {
