@@ -2,11 +2,16 @@ import org.scalatest.FunSuite
 import org.scalatest.concurrent.ScalaFutures
 
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.{ Future, Promise }
 
+import java.net._
+import java.io._
+import scala.io._
 
 import io.zophie.api._
 import io.zophie.api.event._
 import io.zophie.api.event.Implicits._
+import io.zophie.connection._
 
 
 // Defining two dummy events and event data classes
@@ -336,4 +341,37 @@ class APITest extends FunSuite with ScalaFutures {
             _ => assert(x === 1 || x === 2 || x === 3)
         }
     }
+}
+
+class SocketConnectionTest extends FunSuite with ScalaFutures {
+
+
+    test ("Socket receives data") {
+
+        val msg = "test1"
+
+        val port    = 29990
+        val server  = new ServerSocket(port)
+
+        val promise = Promise[String]()
+        val socket  = new SocketConnection(InetAddress.getByName("localhost"), port)(promise.success)
+
+        val session = server.accept
+        val out = new PrintStream( session.getOutputStream )
+
+
+        out.println(msg)
+        out.flush()
+        session.close()
+
+        whenReady(promise.future) { data =>
+            assert(data === msg)
+        }
+
+        server.close()
+
+    }
+
+
+
 }
