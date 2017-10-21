@@ -7,9 +7,7 @@ import scala.io._
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class SocketConnection (ip : InetAddress, port : Int)(callback : ConnectionCallback[String]) extends Connection[String](callback) {
-
-    val socket = new Socket(ip, port)
+class SocketConnection (socket : Socket)(callback : ConnectionCallback[String]) extends Connection[String](callback) {
 
     lazy val input = new BufferedSource( socket.getInputStream ).getLines
     val output = new PrintStream( socket.getOutputStream )
@@ -32,3 +30,8 @@ class SocketConnection (ip : InetAddress, port : Int)(callback : ConnectionCallb
     }
 }
 
+object SocketConnection {
+    def setup (ip : InetAddress, port : Int) : ConnectionFactory[String, SocketConnection] = {
+        return (callback => new SocketConnection(new Socket(ip, port))(callback)) : ConnectionFactory[String, SocketConnection]
+    }
+}
