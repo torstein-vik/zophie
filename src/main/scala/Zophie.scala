@@ -1,7 +1,8 @@
 package io.zophie
 
-import connection._
 import java.net._
+
+import connection._
 import connection.JSONConverter._
 import DefaultNetworkDetails._
 
