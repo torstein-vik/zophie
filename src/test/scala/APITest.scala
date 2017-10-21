@@ -12,6 +12,7 @@ import io.zophie.api._
 import io.zophie.api.event._
 import io.zophie.api.event.Implicits._
 import io.zophie.connection._
+import io.zophie._
 
 
 // Defining two dummy events and event data classes
@@ -396,4 +397,11 @@ class SocketConnectionTest extends FunSuite with ScalaFutures {
 
     }
 
+}
+
+class ConfigTest extends FunSuite {
+    test ("internet config") {
+        assert (DefaultNetworkDetails.defaultNetworkDetails.port === 29990)
+        assert (DefaultNetworkDetails.defaultNetworkDetails.ip   === InetAddress.getByName("localhost"))
+    }
 }
