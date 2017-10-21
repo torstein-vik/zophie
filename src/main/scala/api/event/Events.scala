@@ -13,6 +13,13 @@ trait EventHandler[T <: EventData] {
 // Datacontainer which may be passed through an EventBus
 trait EventData
 
+class EventDataComposite (event : Event)(data : EventData)
+
+trait EventConverter[S] {
+    def toData (event : EventDataComposite) : S
+    def fromData (data : S) : EventDataComposite
+}
+
 case object NoEventData extends EventData
 
 package object Implicits {

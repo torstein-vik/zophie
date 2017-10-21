@@ -7,7 +7,7 @@ import api.event._
 import api._
 
 // Main object, performs all backend interfacing with the IO part of the architecture and is extended by Zophie object
-class Main[S, T <: Connection[S]] (connectionFactory : ConnectionFactory[S, T]) {
+class Main[S, T <: Connection[S]] (connectionFactory : ConnectionFactory[S, T])(implicit converter : EventConverter[S]) {
 
     val connection : T = connectionFactory.setupConnection(backend)
 
