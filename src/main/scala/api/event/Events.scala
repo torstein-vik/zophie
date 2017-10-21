@@ -5,6 +5,7 @@ trait Event {
     type eventData <: EventData
 }
 
+// Extend this to have an event with NoEventData
 trait EventNoData extends Event {
     type eventData = NoEventData.type
 }
@@ -17,17 +18,23 @@ trait EventHandler[T <: EventData] {
 // Datacontainer which may be passed through an EventBus
 trait EventData
 
+// Container for both the event and the data
 class EventDataComposite (event : Event)(data : EventData)
 
+// An object which convert an EventDataComposite into some data S, to be used for interfacing with IO
 trait EventConverter[S] {
+    // 'Stringify' into S
     def toData (event : EventDataComposite) : S
+
+    // Parse from S
     def fromData (data : S) : EventDataComposite
 }
 
+// Specific case of no event data
 case object NoEventData extends EventData
 
 package object Implicits {
 
-    // Specific case of no event data
+    // Implicit NoEventData so we don't need to specify it all the time
     implicit val NoEventDataImplicit = NoEventData
 }
