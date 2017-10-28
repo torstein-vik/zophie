@@ -22,7 +22,11 @@ trait EventHandler[T <: EventData] {
 trait EventData
 
 // Container for both the event and the data
-class EventDataComposite (event : Event)(data : EventData)
+class EventDataComposite (val event : Event)(val data : EventData) {
+    def ==(that : EventDataComposite) = (event == that.event) && (data == that.data)
+    
+    override def toString = event + " with data: " + data
+}
 
 // An object which convert an EventDataComposite into some data S, to be used for interfacing with IO
 trait EventConverter[S] {
