@@ -12,13 +12,13 @@ trait EventDataJSONConverter[T <: EventData] {
 }
 
 trait EventDataJSONConverterRegistry {
-    def getEvent (name : String) : Event
-    def getEventDataJSONConverter (event : Event) : EventDataJSONConverter[event.eventData]
+    def getEvent[T <: EventData] (name : String) : Event[T]
+    def getEventDataJSONConverter[T <: EventData] (event : Event[T]) : EventDataJSONConverter[T]
 }
 
 class JSONEventConverter(implicit edconvreg : EventDataJSONConverterRegistry) extends EventConverter[String] {
 
-    def toData (event : EventDataComposite) : String = {
+    def toData[T <: EventData] (event : EventDataComposite[T]) : String = {
         val eventDataJSONConverter = edconvreg.getEventDataJSONConverter(event.event)
         
         val eventstring = event.event.name
@@ -32,12 +32,13 @@ class JSONEventConverter(implicit edconvreg : EventDataJSONConverterRegistry) ex
         
         return compact(render(json))
     }
-
+    
     // Parses JSON string into Event-EventData pair
-    def fromData (data  : String) : EventDataComposite = {
+    def fromData (data  : String) : EventDataComposite[_] = {
 
         // Just return placeholder
-        return new EventDataComposite(null)(null)
+        case object Placeholder extends EventNoData("placeholder")
+        return new EventDataComposite(Placeholder)(NoEventData)
     }
 }
 
@@ -50,8 +51,8 @@ package object JSONConverter {
     }
     
     implicit object mainEventJSONConverterRegistry extends EventDataJSONConverterRegistry {
-        override def getEvent (name : String) = null
-        override def getEventDataJSONConverter (event : Event) = null
+        override def getEvent[T <: EventData] (name : String) = null
+        override def getEventDataJSONConverter[T <: EventData] (event : Event[T]) = null
     }
         
     // Implicit version, so it doesn't need to be passed
