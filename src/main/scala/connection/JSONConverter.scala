@@ -37,7 +37,7 @@ class JSONEventConverter(implicit edconvreg : EventDataJSONConverterRegistry) ex
     def fromData (data  : String) : EventDataComposite = {
 
         // Just return placeholder
-        return new EventDataComposite(Placeholder)(NoEventData)
+        return new EventDataComposite(null)(null)
     }
 }
 
@@ -49,11 +49,13 @@ package object JSONConverter {
         override def fromJSON (data : JObject) = NoEventData
     }
     
-    implicit object EventDataJSONConverterRegistry {
+    implicit object mainEventJSONConverterRegistry extends EventDataJSONConverterRegistry {
         override def getEvent (name : String) = null
         override def getEventDataJSONConverter (event : Event) = null
     }
-    
+        
     // Implicit version, so it doesn't need to be passed
-    implicit case object jsonc = JSONEventConverter
+    implicit case object jsonc extends JSONEventConverter {
+        
+    }
 }
