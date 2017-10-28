@@ -18,7 +18,7 @@ trait EventHandler[T <: EventData] {
 trait EventData
 
 // Container for both the event and the data
-class EventDataComposite[T <: EventData] (val event : Event[T], val data : T) {
+class EventDataComposite[T <: EventData] (val event : Event[T])(implicit val data : T) {
     def ==(that : EventDataComposite[T]) = (event == that.event) && (data == that.data)
     
     override def toString = event + " with data: " + data
@@ -27,10 +27,10 @@ class EventDataComposite[T <: EventData] (val event : Event[T], val data : T) {
 // An object which convert an EventDataComposite into some data S, to be used for interfacing with IO
 trait EventConverter[S] {
     // 'Stringify' into S
-    def toData[T] (event : EventDataComposite[T]) : S
+    def toData[T <: EventData] (event : EventDataComposite[T]) : S
 
     // Parse from S
-    def fromData[T] (data : S) : EventDataComposite[T]
+    def fromData (data : S) : EventDataComposite[_]
 }
 
 // Specific case of no event data
