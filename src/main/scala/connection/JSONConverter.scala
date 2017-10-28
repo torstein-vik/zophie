@@ -10,6 +10,11 @@ trait EventDataJSONConverter[T <: EventData] {
     def fromJSON (data : JObject) : T
 }
 
+trait EventDataJSONConverterRegistry {
+    def getEvent (name : String) : Event
+    def getEventDataJSONConverter (event : Event) : EventDataJSONConverter[event.eventData]
+}
+
 // A converter that creates JSON-data from an Event-Event data pair
 package object JSONConverter {
 
@@ -18,11 +23,12 @@ package object JSONConverter {
         override def fromJSON (data : JObject) = NoEventData
     }
     
-    // Implicit version, so it doesn't need to be passed
-    implicit object jsonc extends EventConverter[String] {
-
-        // For now, just a placeholder event
-        case object Placeholder extends EventNoData("placeholder")
+    implicit object EventDataJSONConverterRegistry {
+        override def getEvent (name : String) = null
+        override def getEventDataJSONConverter (event : Event) = null
+    }
+    
+    class JSONEventConverter(implicit edconvreg : EventDataJSONConverterRegistry) extends EventConverter[String] {
 
         // Stringifies the JSON for the pair
         def toData (event : EventDataComposite) : String = {
@@ -38,4 +44,7 @@ package object JSONConverter {
             return new EventDataComposite(Placeholder)(NoEventData)
         }
     }
+    
+    // Implicit version, so it doesn't need to be passed
+    implicit case object jsonc = JSONEventConverter
 }
