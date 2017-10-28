@@ -22,7 +22,7 @@ package object JSONConverter {
     implicit object jsonc extends EventConverter[String] {
 
         // For now, just a placeholder event
-        case object Placeholder extends EventNoData
+        case object Placeholder extends EventNoData("placeholder")
 
         // Stringifies the JSON for the pair
         def toData (event : EventDataComposite) : String = {

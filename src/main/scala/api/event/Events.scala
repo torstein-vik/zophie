@@ -1,12 +1,13 @@
 package io.zophie.api.event
 
-// An event is something that an EventBus can invoke. Should be defined using case object, to be used as an Enum. Includes the type of the data which is passed alongside it
-trait Event {
+// An event is something that an EventBus can invoke. Should be defined using case object, to be used as an Enum. 
+// Includes the type of the data which is passed alongside it, and a name
+abstract class Event(val name : String) {
     type eventData <: EventData
 }
 
 // Extend this to have an event with NoEventData
-trait EventNoData extends Event {
+abstract class EventNoData(name : String) extends Event(name) {
     type eventData = NoEventData.type
 }
 
