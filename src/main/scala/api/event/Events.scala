@@ -30,7 +30,7 @@ trait EventConverter[S] {
     def toData[T <: EventData] (event : EventDataComposite[T]) : S
 
     // Parse from S
-    def fromData (data : S) : EventDataComposite[_]
+    def fromData (data : S) : EventDataComposite[EventData]
 }
 
 // Specific case of no event data

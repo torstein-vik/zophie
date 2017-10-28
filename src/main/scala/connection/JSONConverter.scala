@@ -34,7 +34,7 @@ class JSONEventConverter(implicit edconvreg : EventDataJSONConverterRegistry) ex
     }
     
     // Parses JSON string into Event-EventData pair
-    def fromData (data  : String) : EventDataComposite[_] = {
+    def fromData (data  : String) : EventDataComposite[EventData] = {
 
         // Just return placeholder
         case object Placeholder extends EventNoData("placeholder")
