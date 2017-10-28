@@ -21,9 +21,9 @@ import io.zophie._
 class EventData1 (val str : String) extends EventData
 class EventData2 (val num : Int)    extends EventData
 
-case object Event1 extends Event("event1") {type eventData = EventData1}
+case object Event1 extends Event[EventData1]("event1")
 case object Event2 extends EventNoData("event2")
-case object Event3 extends Event("event3") {type eventData = EventData2}
+case object Event3 extends Event[EventData2]("event3")
 
 class EventBusTest extends FunSuite with ScalaFutures {
 
