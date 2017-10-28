@@ -3,6 +3,7 @@ package io.zophie.connection
 import io.zophie.api.event._
 
 import org.json4s._
+import org.json4s.native.JsonMethods._
 
 // Implementation of JSON, to be passed to JSON converter 
 trait EventDataJSONConverter[T <: EventData] {
@@ -17,11 +18,19 @@ trait EventDataJSONConverterRegistry {
 
 class JSONEventConverter(implicit edconvreg : EventDataJSONConverterRegistry) extends EventConverter[String] {
 
-    // Stringifies the JSON for the pair
     def toData (event : EventDataComposite) : String = {
-
-        // For now just returns placeholder
-        return """{"event":"placeholder","data":{}}"""
+        val eventDataJSONConverter = edconvreg.getEventDataJSONConverter(event.event)
+        
+        val eventstring = event.event.name
+        val data = eventDataJSONConverter.toJSON(event.data)
+        
+        val json = {
+            import org.json4s.JsonDSL._
+            ("event" -> eventstring) ~
+            ("data" -> data)
+        }
+        
+        return compact(render(json))
     }
 
     // Parses JSON string into Event-EventData pair
