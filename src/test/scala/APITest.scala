@@ -431,9 +431,18 @@ class ConfigTest extends FunSuite {
 
 class JSONTest extends FunSuite {
     import JSONConverter.jsonc._
+    import org.json4s.native.JsonMethods._
     
     test ("NoData test") {
-        assert(toData(new EventDataComposite(Placeholder)(NoEventData)) === "{event:\"placeholder\",data:{}}")
-        assert(fromData("{event:\"placeholder\",data:{}}") === new EventDataComposite(Placeholder)(NoEventData))
+        
+        // Rigorously defining {"event":"placeholder","data":{}} 
+        val jsonString : String = {
+            import org.json4s.JsonDSL._
+            compact(render(("event" -> "placeholder") ~ ("data" -> JObject())))
+        }
+        
+        // toData and fromData work for Placeholder
+        assert(toData(new EventDataComposite(Placeholder)(NoEventData)) === jsonString)
+        assert(fromData(jsonString) == new EventDataComposite(Placeholder)(NoEventData))
     }
 }
