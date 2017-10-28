@@ -28,7 +28,7 @@ package object JSONConverter {
         def toData (event : EventDataComposite) : String = {
 
             // For now just returns placeholder
-            return "placeholder"
+            return """{"event":"placeholder","data":{}}"""
         }
 
         // Parses JSON string into Event-EventData pair
