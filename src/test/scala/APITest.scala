@@ -4,6 +4,8 @@ import org.scalatest.concurrent.ScalaFutures
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ Future, Promise }
 
+import org.json4s._
+
 import java.net._
 import java.io._
 import scala.io._
@@ -424,5 +426,14 @@ class ConfigTest extends FunSuite {
         // Tesing that the port and IP on defaultNetworkDetails is as exptected
         assert (DefaultNetworkDetails.defaultNetworkDetails.port === 29990)
         assert (DefaultNetworkDetails.defaultNetworkDetails.ip   === InetAddress.getByName("localhost"))
+    }
+}
+
+class JSONTest extends FunSuite {
+    import JSONConverter.jsonc._
+    
+    test ("NoData test") {
+        assert(toData(new EventDataComposite(Placeholder)(NoEventData)) === "{event:\"placeholder\",data:{}}")
+        assert(fromData("{event:\"placeholder\",data:{}}") === new EventDataComposite(Placeholder)(NoEventData))
     }
 }
