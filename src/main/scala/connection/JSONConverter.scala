@@ -15,6 +15,23 @@ trait EventDataJSONConverterRegistry {
     def getEventDataJSONConverter (event : Event) : EventDataJSONConverter[event.eventData]
 }
 
+class JSONEventConverter(implicit edconvreg : EventDataJSONConverterRegistry) extends EventConverter[String] {
+
+    // Stringifies the JSON for the pair
+    def toData (event : EventDataComposite) : String = {
+
+        // For now just returns placeholder
+        return """{"event":"placeholder","data":{}}"""
+    }
+
+    // Parses JSON string into Event-EventData pair
+    def fromData (data  : String) : EventDataComposite = {
+
+        // Just return placeholder
+        return new EventDataComposite(Placeholder)(NoEventData)
+    }
+}
+
 // A converter that creates JSON-data from an Event-Event data pair
 package object JSONConverter {
 
@@ -26,23 +43,6 @@ package object JSONConverter {
     implicit object EventDataJSONConverterRegistry {
         override def getEvent (name : String) = null
         override def getEventDataJSONConverter (event : Event) = null
-    }
-    
-    class JSONEventConverter(implicit edconvreg : EventDataJSONConverterRegistry) extends EventConverter[String] {
-
-        // Stringifies the JSON for the pair
-        def toData (event : EventDataComposite) : String = {
-
-            // For now just returns placeholder
-            return """{"event":"placeholder","data":{}}"""
-        }
-
-        // Parses JSON string into Event-EventData pair
-        def fromData (data  : String) : EventDataComposite = {
-
-            // Just return placeholder
-            return new EventDataComposite(Placeholder)(NoEventData)
-        }
     }
     
     // Implicit version, so it doesn't need to be passed
