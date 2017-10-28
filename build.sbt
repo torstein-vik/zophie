@@ -8,4 +8,4 @@ parallelExecution in Test := false
 libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.4"
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.4" % "test"
 
-libraryDependencies += "org.json4s" % "json4s-jackson_2.11" % "3.2.9"
+libraryDependencies += "org.json4s" %% "json4s-native" % "3.6.0-M1"
