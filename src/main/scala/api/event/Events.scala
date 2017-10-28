@@ -4,6 +4,8 @@ package io.zophie.api.event
 // Includes the type of the data which is passed alongside it, and a name
 abstract class Event(val name : String) {
     type eventData <: EventData
+    
+    override def toString = name
 }
 
 // Extend this to have an event with NoEventData
