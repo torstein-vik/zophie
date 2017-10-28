@@ -2,16 +2,12 @@ package io.zophie.api.event
 
 // An event is something that an EventBus can invoke. Should be defined using case object, to be used as an Enum. 
 // Includes the type of the data which is passed alongside it, and a name
-abstract class Event(val name : String) {
-    type eventData <: EventData
-    
+abstract class Event[T <: EventData](val name : String) {
     override def toString = name
 }
 
 // Extend this to have an event with NoEventData
-abstract class EventNoData(name : String) extends Event(name) {
-    type eventData = NoEventData.type
-}
+abstract class EventNoData(name : String) extends Event[NoEventData.type](name)
 
 // An EventHandler takes the eventData and performs some task. Takes the type of the EventData as a type parameter
 trait EventHandler[T <: EventData] {
@@ -22,8 +18,8 @@ trait EventHandler[T <: EventData] {
 trait EventData
 
 // Container for both the event and the data
-class EventDataComposite (val event : Event)(val data : EventData) {
-    def ==(that : EventDataComposite) = (event == that.event) && (data == that.data)
+class EventDataComposite[T <: EventData] (val event : Event[T], val data : T) {
+    def ==(that : EventDataComposite[T]) = (event == that.event) && (data == that.data)
     
     override def toString = event + " with data: " + data
 }
@@ -31,10 +27,10 @@ class EventDataComposite (val event : Event)(val data : EventData) {
 // An object which convert an EventDataComposite into some data S, to be used for interfacing with IO
 trait EventConverter[S] {
     // 'Stringify' into S
-    def toData (event : EventDataComposite) : S
+    def toData[T] (event : EventDataComposite[T]) : S
 
     // Parse from S
-    def fromData (data : S) : EventDataComposite
+    def fromData[T] (data : S) : EventDataComposite[T]
 }
 
 // Specific case of no event data
