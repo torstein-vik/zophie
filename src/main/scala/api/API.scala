@@ -7,7 +7,7 @@ import event._
 class API extends DefaultEventBus {
 
     // Shorthands for addEventHandler and triggerEvent
-    def trigger(event : Event)(implicit data : event.eventData) = triggerEvent(event)(data)
-    def on(event : Event)(handler : EventHandler[event.eventData]) = addEventHandler(event)(handler)
+    def trigger[T <: EventData](event : Event[T])(implicit data : T) = triggerEvent(event)(data)
+    def on[T <: EventData](event : Event[T])(handler : EventHandler[T]) = addEventHandler(event)(handler)
 
 }
