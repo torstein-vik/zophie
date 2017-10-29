@@ -21,7 +21,10 @@ trait EventDataJSONConverterRegistry {
 class JSONEventConverter(implicit edconvreg : EventDataJSONConverterRegistry) extends EventConverter[String] {
 
     def toData[T <: EventData] (event : EventDataComposite[T]) : String = {
-        val eventDataJSONConverter = edconvreg.getEventDataJSONConverter(event.event)
+        val eventDataJSONConverter = edconvreg.getEventDataJSONConverter(event.event) match {
+            case Some(value) => value
+            case _ => throw JSONConversionException("No event-data jsonconverter found for " + event)
+        }
         
         val eventstring = event.event.name
         val data = eventDataJSONConverter.toJSON(event.data)
