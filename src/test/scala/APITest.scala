@@ -485,4 +485,32 @@ class JSONTest extends FunSuite {
         assert(toData(new EventDataComposite(EventC)) === jsonString)
         assert(fromData(jsonString) == EventDataComposite(EventC))
     }
+    
+    case class EventDataD(test : Int, other : String) extends EventData
+    
+    implicit object eddjsonconv extends EventDataJSONConverter[EventDataD]{
+        override def toJSON (data : EventDataD) = {
+            import org.json4s.JsonDSL._
+            ("test" -> data.test) ~ ("other" -> data.other)
+        }
+        
+        override def fromJSON (data : JObject) = data.extract[EventDataD](DefaultFormats, implicitly)
+    }
+    
+    case object EventD extends Event[EventDataD]("event_d")
+    
+    register(EventD)
+    
+    test ("EventD test, with data passing") {
+                
+        // Rigorously defining {"event":"Event_b","data":{"test": 7, "other":"test"}} 
+        val jsonString : String = {
+            import org.json4s.JsonDSL._
+            compact(render(("event" -> "event_d") ~ ("data" -> (("test" -> 7) ~ ("other" -> "test")))))
+        }
+        
+        // toData and fromData work for EventB
+        assert(toData(EventDataComposite(EventD)(EventDataD(7, "test"))) === jsonString)
+        assert(fromData(jsonString) == EventDataComposite(EventD)(EventDataD(7, "test")))
+    }
 }
