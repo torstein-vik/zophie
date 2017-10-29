@@ -9,10 +9,10 @@ import mockupio.IO
 
 import io.zophie._
 
-class IOTest extends FunSuite {
-    
-    val port = 29990
-    val ip = InetAddress.getByName("localhost")
+val port = 29990
+val ip = InetAddress.getByName("localhost")
+
+class InternetTest extends FunSuite {
     
     test ("mockup IO may start") {        
         val IO = new IO(port)
@@ -22,12 +22,19 @@ class IOTest extends FunSuite {
         IO.close
     }
     
+}
+
+class IOTest extends FunSuite {
     
     val IO = new IO(port)
     
-    IO.close
+    test ("zophie starts") {
+        Zophie.connection
+    }
+    
     
     test ("server is closed properly") {
+        IO.close
         assertThrows[ConnectException] {
             new Socket(ip, port)
         }
