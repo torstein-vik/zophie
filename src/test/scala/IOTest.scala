@@ -16,4 +16,9 @@ class IOTest extends FunSuite {
     
     IO.close
     
+    test ("server is closed properly") {
+        assertThrows[ConnectException] {
+            new Socket(ip, port)
+        }
+    }
 } 
