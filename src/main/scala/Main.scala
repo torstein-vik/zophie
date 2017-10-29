@@ -2,7 +2,7 @@ package io.zophie
 
 import java.net._
 
-import connection._
+import api.connection._
 import api.event._
 import api._
 

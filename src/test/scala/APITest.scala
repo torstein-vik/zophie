@@ -13,7 +13,7 @@ import scala.io._
 import io.zophie.api._
 import io.zophie.api.event._
 import io.zophie.api.event.Implicits._
-import io.zophie.connection._
+import io.zophie.api.connection._
 import io.zophie._
 
 

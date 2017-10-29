@@ -2,8 +2,8 @@ package io.zophie
 
 import java.net._
 
-import connection._
-import connection.JSONConverter._
+import api.connection._
+import api.connection.JSONConverter._
 import DefaultNetworkDetails._
 
 // Primary object, where it all begins (extends App)
