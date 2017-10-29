@@ -14,6 +14,8 @@ trait EventDataJSONConverter[T <: EventData] {
 }
 
 trait EventDataJSONConverterRegistry {
+    def register[T <: EventData] (event : Event[T])(EventDataJSONConverter[T]) : Unit
+    
     def getEvent (name : String) : Option[Event[_]]
     def getEventDataJSONConverter[T <: EventData] (event : Event[T]) : Option[EventDataJSONConverter[T]]
 }
