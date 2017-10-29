@@ -5,6 +5,8 @@ import io.zophie.api.event._
 import org.json4s._
 import org.json4s.native.JsonMethods._
 
+case class JSONConversionException(msg : String) extends Exception(msg)
+
 // Implementation of JSON, to be passed to JSON converter 
 trait EventDataJSONConverter[T <: EventData] {
     def toJSON   (data : T) : JObject
