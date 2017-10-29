@@ -14,7 +14,7 @@ trait EventDataJSONConverter[T <: EventData] {
 }
 
 trait EventDataJSONConverterRegistry {
-    def register[T <: EventData] (event : Event[T])(converter : EventDataJSONConverter[T]) : Unit
+    def register[T <: EventData] (event : Event[T])(implicit converter : EventDataJSONConverter[T]) : Unit
     
     def getEvent (name : String) : Option[Event[_]]
     def getEventDataJSONConverter[T <: EventData] (event : Event[T]) : Option[EventDataJSONConverter[T]]
@@ -61,7 +61,7 @@ package object JSONConverter {
         private var eventRegistry : Map[String, Event[_]] = Map()
         private var eventDataRegistry : Map[Event[_], EventDataJSONConverter[_]] = Map()
         
-        def register[T <: EventData] (event : Event[T])(converter : EventDataJSONConverter[T]) = {
+        def register[T <: EventData] (event : Event[T])(implicit converter : EventDataJSONConverter[T]) = {
             eventRegistry += (event.name -> event)
             eventDataRegistry += (event -> converter)
         }
