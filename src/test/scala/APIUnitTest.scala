@@ -7,6 +7,7 @@ import scala.concurrent.{ Future, Promise }
 import org.json4s._
 
 import java.net._
+import javax.net.ssl._
 import java.io._
 import scala.io._
 
@@ -346,9 +347,45 @@ class APITest extends FunSuite with ScalaFutures {
     }
 }
 
+class ConnectionTest extends FunSuite with ScalaFutures {
+    test ("connection is possible") {
+        
+        val port = 29990
+        val ip = InetAddress.getByName("localhost")
+        
+        val serverSocketFactory = SSLServerSocketFactory.getDefault()
+        val server = serverSocketFactory.createServerSocket(port)
+        
+        val socketFactory = SSLSocketFactory.getDefault()
+        val socket = socketFactory.createSocket(ip, port)
+        
+        val session = server.accept()
+        
+        val serverout = new PrintStream( session.getOutputStream )
+        val serverin = new BufferedSource( session.getInputStream ).getLines
+        
+        val clientout = new PrintStream( socket.getOutputStream )
+        val clientin = new BufferedSource( socket.getInputStream ).getLines
+                
+        serverout.println("hey1")
+        serverout.flush()
+        
+        assert(clientin.next() === "hey1")
+        
+        clientout.println("hey2")
+        clientout.flush()
+        
+        assert(serverin.next() === "hey2")
+        
+        session.close()
+        socket.close()
+        server.close()
+        
+    }
+}
+
+
 class SocketConnectionTest extends FunSuite with ScalaFutures {
-
-
     test ("Socket receives data") {
 
         // Message to be sent to socket
