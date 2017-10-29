@@ -12,7 +12,7 @@ trait EventDataJSONConverter[T <: EventData] {
 }
 
 trait EventDataJSONConverterRegistry {
-    def getEvent[T <: EventData] (name : String) : Event[T]
+    def getEvent (name : String) : Event[_]
     def getEventDataJSONConverter[T <: EventData] (event : Event[T]) : EventDataJSONConverter[T]
 }
 
@@ -51,7 +51,7 @@ package object JSONConverter {
     }
     
     implicit object mainEventJSONConverterRegistry extends EventDataJSONConverterRegistry {
-        override def getEvent[T <: EventData] (name : String) = null
+        override def getEvent (name : String) : Event[_] = null
         override def getEventDataJSONConverter[T <: EventData] (event : Event[T]) = null
     }
         
