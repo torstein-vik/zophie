@@ -454,8 +454,8 @@ class JSONTest extends FunSuite {
         }
         
         // toData and fromData work for EventA
-        assert(toData(new EventDataComposite(EventA)(NoEventData)) === jsonString)
-        assert(fromData(jsonString) == new EventDataComposite(EventA)(NoEventData))
+        assert(toData(EventDataComposite(EventA)) === jsonString)
+        assert(fromData(jsonString) == EventDataComposite(EventA))
     }
     
     test ("NoData, EventB test") {
@@ -468,8 +468,8 @@ class JSONTest extends FunSuite {
         }
         
         // toData and fromData work for EventB
-        assert(toData(new EventDataComposite(EventB)(NoEventData)) === jsonString)
-        assert(fromData(jsonString) == new EventDataComposite(EventB)(NoEventData))
+        assert(toData(new EventDataComposite(EventB)) === jsonString)
+        assert(fromData(jsonString) == EventDataComposite(EventB))
     }
     
     test ("NoData, EventC test") {
@@ -482,7 +482,7 @@ class JSONTest extends FunSuite {
         }
         
         // toData and fromData work for EventB
-        assert(toData(new EventDataComposite(EventC)(NoEventData)) === jsonString)
-        assert(fromData(jsonString) == new EventDataComposite(EventC)(NoEventData))
+        assert(toData(new EventDataComposite(EventC)) === jsonString)
+        assert(fromData(jsonString) == EventDataComposite(EventC))
     }
 }
