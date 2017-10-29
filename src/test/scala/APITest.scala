@@ -431,13 +431,17 @@ class ConfigTest extends FunSuite {
 
 class JSONTest extends FunSuite {
     // importing basic json functionallity
-    import JSONConverter.jsonc._
+    import JSONConverter._
     import org.json4s.native.JsonMethods._
     
     // Some events without data
     case object EventA extends EventNoData("event_a")
     case object EventB extends EventNoData("event_b")
     case object EventC extends EventNoData("event_c")
+    
+    register(EventA)
+    register(EventB)
+    register(EventC)
     
     test ("NoData test") {
         
