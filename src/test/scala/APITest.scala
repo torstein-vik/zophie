@@ -439,6 +439,7 @@ class JSONTest extends FunSuite {
     case object EventB extends EventNoData("event_b")
     case object EventC extends EventNoData("event_c")
     
+    // Registering those events
     register(EventA)
     register(EventB)
     register(EventC)
@@ -446,13 +447,13 @@ class JSONTest extends FunSuite {
     test ("NoData test") {
         
         
-        // Rigorously defining {"event":"placeholder","data":{}} 
+        // Rigorously defining {"event":"event_a","data":{}} 
         val jsonString : String = {
             import org.json4s.JsonDSL._
             compact(render(("event" -> "event_a") ~ ("data" -> JObject())))
         }
         
-        // toData and fromData work for Placeholder
+        // toData and fromData work for EventA
         assert(toData(new EventDataComposite(EventA)(NoEventData)) === jsonString)
         assert(fromData(jsonString) == new EventDataComposite(EventA)(NoEventData))
     }
