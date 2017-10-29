@@ -8,16 +8,14 @@ import scala.io._
 import mockupio.IO
 
 import io.zophie._
-
-val port = 29990
-val ip = InetAddress.getByName("localhost")
+import io.zophie.DefaultNetworkDetails._
 
 class InternetTest extends FunSuite {
     
     test ("mockup IO may start") {        
-        val IO = new IO(port)
+        val IO = new IO(defaultNetworkDetails.port)
         
-        new Socket(ip, port).close()
+        new Socket(defaultNetworkDetails.ip, defaultNetworkDetails.port).close()
         
         IO.close
     }
@@ -26,7 +24,7 @@ class InternetTest extends FunSuite {
 
 class IOTest extends FunSuite {
     
-    val IO = new IO(port)
+    val IO = new IO(defaultNetworkDetails.port)
     
     test ("zophie starts") {
         Zophie.connection
@@ -36,7 +34,7 @@ class IOTest extends FunSuite {
     test ("server is closed properly") {
         IO.close
         assertThrows[ConnectException] {
-            new Socket(ip, port)
+            new Socket(defaultNetworkDetails.ip, defaultNetworkDetails.port)
         }
     }
 } 
