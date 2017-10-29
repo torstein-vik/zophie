@@ -52,6 +52,12 @@ class JSONEventConverter(implicit edconvreg : EventDataJSONConverterRegistry) ex
 // A converter that creates JSON-data from an Event-Event data pair
 package object JSONConverter {
 
+    def register[T <: EventData] (event : Event[T])(implicit converter : EventDataJSONConverter[T]) = mainEventJSONConverterRegistry.register[T](event)(converter)
+
+    def toData[T <: EventData] (event : EventDataComposite[T]) : String = jsonc.toData(event)
+    def fromData (data  : String) : EventDataComposite[EventData] = jsonc.fromData(data)
+    
+
     implicit object edjsonNoEventData extends EventDataJSONConverter[NoEventData.type] {
         override def toJSON   (data : NoEventData.type) = JObject()
         override def fromJSON (data : JObject) = NoEventData
