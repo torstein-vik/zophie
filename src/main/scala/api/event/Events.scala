@@ -19,7 +19,9 @@ trait EventData
 
 // Container for both the event and the data
 class EventDataComposite[+T <: EventData] (val event : Event[T])(implicit val data : T) {
-    def ==(that : EventDataComposite[EventData]) = (event == that.event) && (data == that.data)
+    override def equals(that : Any) = (that.isInstanceOf[EventDataComposite[T]]) && 
+        (event == that.asInstanceOf[EventDataComposite[T]].event) && 
+        (data == that.asInstanceOf[EventDataComposite[T]].data)
     
     override def toString = event + " with data: " + data
 }
