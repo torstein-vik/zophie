@@ -444,7 +444,7 @@ class JSONTest extends FunSuite {
     register(EventB)
     register(EventC)
     
-    test ("NoData test") {
+    test ("NoData, EventA test") {
         
         
         // Rigorously defining {"event":"event_a","data":{}} 
@@ -456,5 +456,33 @@ class JSONTest extends FunSuite {
         // toData and fromData work for EventA
         assert(toData(new EventDataComposite(EventA)(NoEventData)) === jsonString)
         assert(fromData(jsonString) == new EventDataComposite(EventA)(NoEventData))
+    }
+    
+    test ("NoData, EventB test") {
+        
+        
+        // Rigorously defining {"event":"event_b","data":{}} 
+        val jsonString : String = {
+            import org.json4s.JsonDSL._
+            compact(render(("event" -> "event_b") ~ ("data" -> JObject())))
+        }
+        
+        // toData and fromData work for EventB
+        assert(toData(new EventDataComposite(EventB)(NoEventData)) === jsonString)
+        assert(fromData(jsonString) == new EventDataComposite(EventB)(NoEventData))
+    }
+    
+    test ("NoData, EventC test") {
+        
+        
+        // Rigorously defining {"event":"Event_b","data":{}} 
+        val jsonString : String = {
+            import org.json4s.JsonDSL._
+            compact(render(("event" -> "event_c") ~ ("data" -> JObject())))
+        }
+        
+        // toData and fromData work for EventB
+        assert(toData(new EventDataComposite(EventC)(NoEventData)) === jsonString)
+        assert(fromData(jsonString) == new EventDataComposite(EventC)(NoEventData))
     }
 }
