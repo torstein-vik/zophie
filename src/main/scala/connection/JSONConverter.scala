@@ -16,7 +16,7 @@ trait EventDataJSONConverter[T <: EventData] {
 trait EventDataJSONConverterRegistry {
     def register[T <: EventData] (event : Event[T])(implicit converter : EventDataJSONConverter[T]) : Unit
     
-    def getEvent (name : String) : Option[Event[_]]
+    def getEvent (name : String) : Option[Event[EventData]]
     def getEventDataJSONConverter[T <: EventData] (event : Event[T]) : Option[EventDataJSONConverter[T]]
 }
 
@@ -42,10 +42,29 @@ class JSONEventConverter(implicit edconvreg : EventDataJSONConverterRegistry) ex
     
     // Parses JSON string into Event-EventData pair
     def fromData (data  : String) : EventDataComposite[EventData] = {
-
-        // Just return placeholder
-        case object Placeholder extends EventNoData("placeholder")
-        return new EventDataComposite(Placeholder)(NoEventData)
+        // TODO: Add Exception on json syntax errors, or not fitting schema
+        val json = {
+            parse(data) 
+        }
+        
+        val name : String = (json \ "event").extract[String](DefaultFormats, implicitly)
+        val jsondata = (json \ "data").asInstanceOf[JObject] 
+        
+        
+        val event = edconvreg.getEvent(name) match {
+            case Some(value) => value
+            case _ => throw JSONConversionException("No event found with name " + name)
+        }
+        
+        val eventDataJSONConverter = edconvreg.getEventDataJSONConverter(event) match {
+            case Some(value) => value
+            case _ => throw JSONConversionException("No event-data jsonconverter found for " + event)
+        }
+        
+        // TODO: implement with Option
+        val eventData = eventDataJSONConverter.fromJSON(jsondata)
+        
+        return new EventDataComposite[EventData](event)(eventData)
     }
 }
 
@@ -64,15 +83,15 @@ package object JSONConverter {
     }
     
     implicit object mainEventJSONConverterRegistry extends EventDataJSONConverterRegistry {
-        private var eventRegistry : Map[String, Event[_]] = Map()
-        private var eventDataRegistry : Map[Event[_], EventDataJSONConverter[_]] = Map()
+        private var eventRegistry : Map[String, Event[EventData]] = Map()
+        private var eventDataRegistry : Map[Event[EventData], EventDataJSONConverter[_]] = Map()
         
         def register[T <: EventData] (event : Event[T])(implicit converter : EventDataJSONConverter[T]) = {
             eventRegistry += (event.name -> event)
             eventDataRegistry += (event -> converter)
         }
         
-        override def getEvent (name : String) : Option[Event[_]] = eventRegistry.get(name)
+        override def getEvent (name : String) : Option[Event[EventData]] = eventRegistry.get(name)
         override def getEventDataJSONConverter[T <: EventData] (event : Event[T]) = eventDataRegistry.get(event).map(_.asInstanceOf[EventDataJSONConverter[T]])
     }
         
