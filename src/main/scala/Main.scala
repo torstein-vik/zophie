@@ -10,7 +10,7 @@ import api._
 class Main[S, T <: Connection[S]] (connectionFactory : ConnectionFactory[S, T])(implicit converter : EventConverter[S]) {
 
     // Connection with IO, unspecified exactly what. Use backend object as ConnectionCallback
-    val connection : T = connectionFactory.setupConnection(backend)
+    lazy val connection : T = connectionFactory.setupConnection(backend)
 
     // API for the scala backend (this codebase), this is what 'on' uses to addEventListener
     // Events dispatched (primarily) by ConnectionCallback
