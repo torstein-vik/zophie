@@ -1,4 +1,4 @@
-package io.zophie.connection
+package io.zophie.api.connection
 
 // A callback that is called whenever some data is received by the associated connection object
 trait ConnectionCallback[T] {
