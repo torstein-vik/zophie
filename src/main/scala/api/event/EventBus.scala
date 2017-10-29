@@ -12,16 +12,16 @@ import scala.concurrent.ExecutionContext.Implicits.global
 trait EventBus {
 
     // Add a new EventHandler
-    def addEventHandler(event : Event)(handler : EventHandler[event.eventData]) : Unit
+    def addEventHandler[T <: EventData](event : Event[T])(handler : EventHandler[T]) : Unit
 
     // Test if an event has any handlers
-    def hasEventHandler(event : Event) : Boolean
+    def hasEventHandler[T <: EventData](event : Event[T]) : Boolean
 
     // Trigger an event asynchronously (ie. invoke EventHandlers on seperate threads), and return a future object resolved when all EventHandlers are finished
-    def triggerEvent(event : Event)(implicit data : event.eventData) : Future[Unit]
+    def triggerEvent[T <: EventData](event : Event[T])(implicit data : T) : Future[Unit]
 
     // Trigger an event synchronously (ie. invoke all EventHandlers ,in the order which they were added, on this thread)
-    def triggerEventSync(event : Event)(implicit data : event.eventData) : Unit
+    def triggerEventSync[T <: EventData](event : Event[T])(implicit data : T) : Unit
 
 }
 
@@ -30,19 +30,19 @@ class DefaultEventBus extends EventBus {
 
     // Map of all the EventHandlers. Note that this is private, which means we can use the wildcard in EventHandler[_] while still preserving type safety
     // (as handlers is only affected by methods in this class, all of which are type safe)
-    private var handlers : Map[Event, Seq[EventHandler[_]]] = Map()
+    private var handlers : Map[Event[_], Seq[EventHandler[_]]] = Map()
 
-    override def addEventHandler(event : Event)(handler : EventHandler[event.eventData]) = {
+    override def addEventHandler[T <: EventData](event : Event[T])(handler : EventHandler[T]) = {
         // Append to handlers[event] if it exists, Seq(handler) otherwise
         handlers += event -> (handlers.getOrElse(event, Seq()) ++ Seq(handler))
     }
 
-    override def hasEventHandler(event : Event) : Boolean = {
+    override def hasEventHandler[T <: EventData](event : Event[T]) : Boolean = {
         // At least one EventHandler is registered on event
         return handlers.getOrElse(event, Seq()).length > 0
     }
 
-    override def triggerEvent(event : Event)(implicit data : event.eventData) : Future[Unit] = {
+    override def triggerEvent[T <: EventData](event : Event[T])(implicit data : T) : Future[Unit] = {
         // Future.sequence takes a list of Futures and turns it into a Future of lists
         return Future.sequence(
 
@@ -50,7 +50,7 @@ class DefaultEventBus extends EventBus {
             handlers.getOrElse(event, Seq()).map(handler =>
                 Future [Unit] {
                     // Note that becuase of the wildcard in handlers, we have to use _.asInstanceOf
-                    handler.asInstanceOf[EventHandler[event.eventData]].handle(data)
+                    handler.asInstanceOf[EventHandler[T]].handle(data)
                 }
             )
 
@@ -58,10 +58,10 @@ class DefaultEventBus extends EventBus {
         ).map( _ => Unit )
     }
 
-    override def triggerEventSync(event : Event)(implicit data : event.eventData) = {
+    override def triggerEventSync[T <: EventData](event : Event[T])(implicit data : T) = {
         // For each element in handlers[event], run _.handle(data)
         // Note that becuase of the wildcard in handlers, we have to use _.asInstanceOf
-        handlers.getOrElse(event, Seq()).foreach(_.asInstanceOf[EventHandler[event.eventData]].handle(data))
+        handlers.getOrElse(event, Seq()).foreach(_.asInstanceOf[EventHandler[T]].handle(data))
     }
 
 }

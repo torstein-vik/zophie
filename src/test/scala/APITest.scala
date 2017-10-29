@@ -4,6 +4,8 @@ import org.scalatest.concurrent.ScalaFutures
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ Future, Promise }
 
+import org.json4s._
+
 import java.net._
 import java.io._
 import scala.io._
@@ -19,9 +21,9 @@ import io.zophie._
 class EventData1 (val str : String) extends EventData
 class EventData2 (val num : Int)    extends EventData
 
-case object Event1 extends Event {type eventData = EventData1}
-case object Event2 extends EventNoData
-case object Event3 extends Event {type eventData = EventData2}
+case object Event1 extends Event[EventData1]("event1")
+case object Event2 extends EventNoData("event2")
+case object Event3 extends Event[EventData2]("event3")
 
 class EventBusTest extends FunSuite with ScalaFutures {
 
@@ -424,5 +426,91 @@ class ConfigTest extends FunSuite {
         // Tesing that the port and IP on defaultNetworkDetails is as exptected
         assert (DefaultNetworkDetails.defaultNetworkDetails.port === 29990)
         assert (DefaultNetworkDetails.defaultNetworkDetails.ip   === InetAddress.getByName("localhost"))
+    }
+}
+
+class JSONTest extends FunSuite {
+    // importing basic json functionallity
+    import JSONConverter._
+    import org.json4s.native.JsonMethods._
+    
+    // Some events without data
+    case object EventA extends EventNoData("event_a")
+    case object EventB extends EventNoData("event_b")
+    case object EventC extends EventNoData("event_c")
+    
+    // Registering those events
+    register(EventA)
+    register(EventB)
+    register(EventC)
+    
+    test ("NoData, EventA test") {
+        
+        
+        // Rigorously defining {"event":"event_a","data":{}} 
+        val jsonString : String = {
+            import org.json4s.JsonDSL._
+            compact(render(("event" -> "event_a") ~ ("data" -> JObject())))
+        }
+        
+        // toData and fromData work for EventA
+        assert(toData(EventDataComposite(EventA)) === jsonString)
+        assert(fromData(jsonString) == EventDataComposite(EventA))
+    }
+    
+    test ("NoData, EventB test") {
+        
+        
+        // Rigorously defining {"event":"event_b","data":{}} 
+        val jsonString : String = {
+            import org.json4s.JsonDSL._
+            compact(render(("event" -> "event_b") ~ ("data" -> JObject())))
+        }
+        
+        // toData and fromData work for EventB
+        assert(toData(new EventDataComposite(EventB)) === jsonString)
+        assert(fromData(jsonString) == EventDataComposite(EventB))
+    }
+    
+    test ("NoData, EventC test") {
+        
+        
+        // Rigorously defining {"event":"Event_b","data":{}} 
+        val jsonString : String = {
+            import org.json4s.JsonDSL._
+            compact(render(("event" -> "event_c") ~ ("data" -> JObject())))
+        }
+        
+        // toData and fromData work for EventB
+        assert(toData(new EventDataComposite(EventC)) === jsonString)
+        assert(fromData(jsonString) == EventDataComposite(EventC))
+    }
+    
+    case class EventDataD(test : Int, other : String) extends EventData
+    
+    implicit object eddjsonconv extends EventDataJSONConverter[EventDataD]{
+        override def toJSON (data : EventDataD) = {
+            import org.json4s.JsonDSL._
+            ("test" -> data.test) ~ ("other" -> data.other)
+        }
+        
+        override def fromJSON (data : JObject) = data.extract[EventDataD](DefaultFormats, implicitly)
+    }
+    
+    case object EventD extends Event[EventDataD]("event_d")
+    
+    register(EventD)
+    
+    test ("EventD test, with data passing") {
+                
+        // Rigorously defining {"event":"Event_b","data":{"test": 7, "other":"test"}} 
+        val jsonString : String = {
+            import org.json4s.JsonDSL._
+            compact(render(("event" -> "event_d") ~ ("data" -> (("test" -> 7) ~ ("other" -> "test")))))
+        }
+        
+        // toData and fromData work for EventB
+        assert(toData(EventDataComposite(EventD)(EventDataD(7, "test"))) === jsonString)
+        assert(fromData(jsonString) == EventDataComposite(EventD)(EventDataD(7, "test")))
     }
 }

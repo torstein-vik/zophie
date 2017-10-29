@@ -28,14 +28,14 @@ class Main[S, T <: Connection[S]] (connectionFactory : ConnectionFactory[S, T])(
     private object io extends API {
 
         // Asynchronously trigger event both here and in the IO
-        override def triggerEvent (event : Event)(implicit data : event.eventData) = {
+        override def triggerEvent[T <: EventData] (event : Event[T])(implicit data : T) = {
 
             // Basic API functionality preserved
             super.triggerEvent(event)(data)
         }
 
         // Synchronously trigger event both here and in the IO
-        override def triggerEventSync (event : Event)(implicit data : event.eventData) = {
+        override def triggerEventSync[T <: EventData] (event : Event[T])(implicit data : T) = {
 
             // Basic API functionality preserved
             super.triggerEventSync(event)(data)
@@ -44,9 +44,9 @@ class Main[S, T <: Connection[S]] (connectionFactory : ConnectionFactory[S, T])(
     }
 
     // Trigger event on IO-side
-    def trigger(event : Event)(implicit data : event.eventData) = io.trigger(event)(data)
+    def trigger[T <: EventData](event : Event[T])(implicit data : T) = io.trigger(event)(data)
 
     // Listen for events sent here from IO-side
-    def on(event : Event)(handler : EventHandler[event.eventData]) = backend.on(event)(handler)
+    def on[T <: EventData](event : Event[T])(handler : EventHandler[T]) = backend.on(event)(handler)
 
 }
