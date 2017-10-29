@@ -1,6 +1,8 @@
 package io.zophie.api.connection
 
 import java.net._
+import javax.net.ssl._
+
 import java.io._
 import scala.io._
 
@@ -46,8 +48,10 @@ class SocketConnection (socket : Socket)(callback : ConnectionCallback[String]) 
 // Factory for ConnectionFactory creating a SocketConnection
 // Setup with ip and port, or with (implicit) configuration given in e.g. DefaultNetworkDetails
 object SocketConnection {
+    val socketFactory = SSLSocketFactory.getDefault()
+    
     def setup (ip : InetAddress, port : Int) : ConnectionFactory[String, SocketConnection] = {
-        return (callback => new SocketConnection(new Socket(ip, port))(callback)) : ConnectionFactory[String, SocketConnection]
+        return (callback => new SocketConnection(socketFactory.createSocket(ip, port))(callback)) : ConnectionFactory[String, SocketConnection]
     }
 
     // To use Networkdetails datacontainer instead of ip and port separately
