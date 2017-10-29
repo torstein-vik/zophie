@@ -64,7 +64,7 @@ class JSONEventConverter(implicit edconvreg : EventDataJSONConverterRegistry) ex
         // TODO: implement with Option
         val eventData = eventDataJSONConverter.fromJSON(jsondata)
         
-        return new EventDataComposite[EventData](event)(eventData)
+        return EventDataComposite(event)(eventData)
     }
 }
 
