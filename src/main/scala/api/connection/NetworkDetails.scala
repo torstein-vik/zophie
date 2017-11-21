@@ -1,4 +1,4 @@
-package io.zophie
+package io.zophie.api.connection
 
 import java.net._
 

@@ -8,7 +8,7 @@ import scala.io._
 import mockupio.IO
 
 import io.zophie._
-import io.zophie.DefaultNetworkDetails._
+import io.zophie.api.connection.DefaultNetworkDetails._
 
 class InternetTest extends FunSuite {
     

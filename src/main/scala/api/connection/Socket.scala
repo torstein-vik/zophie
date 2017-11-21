@@ -9,8 +9,6 @@ import scala.io._
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
-import io.zophie.NetworkDetails
-
 // An implementation of Connection (w. String as datatype) using java sockets, as a client (not server)
 // Use factory to create, unless you want to pass your own socket
 class SocketConnection (socket : Socket)(callback : ConnectionCallback[String]) extends Connection[String](callback) {
